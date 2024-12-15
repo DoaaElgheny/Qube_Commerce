@@ -1,6 +1,7 @@
 
-import 'package:qubeCommerce/features/home/domain/entities/deal_parameter.dart';
-import 'package:qubeCommerce/features/home/domain/entities/deals_entity.dart';
+import 'package:qubeCommerce/features/deals/data/models/deal_parameter.dart';
+import 'package:qubeCommerce/features/deals/data/models/deals_entity.dart';
+import '../../../../core/api/http/failure.dart';
 import '../../../../core/error/Failure.dart';
 import 'package:dartz/dartz.dart';
 

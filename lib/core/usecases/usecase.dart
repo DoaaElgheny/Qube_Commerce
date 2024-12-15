@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import '../api/http/failure.dart';
 import '../error/Failure.dart';
 
 //type to what return Params for parameter

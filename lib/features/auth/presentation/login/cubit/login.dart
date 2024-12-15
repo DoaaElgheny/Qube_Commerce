@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/api/http/http_export.dart';
 import '../../../../../core/authentication/provider.dart';
+import '../../../../../injection_container.dart';
 import '../../../domain/entities/login_credentials.dart';
 import '../../../domain/entities/social_media_credentials.dart';
 import 'states.dart';
@@ -29,6 +31,7 @@ final class LoginCubit extends Cubit<LoginState> {
           password: passwordController.text,
         ),
       );
+       
       emit(LoggedInState(user: user));
     } catch (e, s) {
       emit(ExceptionState(error: e));

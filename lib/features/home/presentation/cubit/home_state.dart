@@ -1,6 +1,6 @@
 
 import 'package:qubeCommerce/features/home/data/models/deal_model.dart';
-import 'package:qubeCommerce/features/home/domain/entities/deals_entity.dart';
+import 'package:qubeCommerce/features/deals/data/models/deals_entity.dart';
 
 class HomeState {
   DealsEntity? avaliableDealsList;

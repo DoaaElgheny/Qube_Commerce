@@ -17,8 +17,8 @@ final class DioClient {
   DioClient._internal() {
     final options = BaseOptions(
       baseUrl: EndPoints.baseUrl,
-      connectTimeout: 5000,
-      receiveTimeout: 100000,
+      connectTimeout: Duration(milliseconds: 5000),
+      receiveTimeout: Duration(milliseconds:100000),
       receiveDataWhenStatusError: true,
       validateStatus: (status) {
         return true;

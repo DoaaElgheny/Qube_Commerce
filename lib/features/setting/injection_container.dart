@@ -20,12 +20,12 @@ Future<void> initSettingCvees() async {
 
 
   // Repository
-  sl.registerLazySingleton<SettingRepository>(
-          () => SettingRepositoryImpl( settingRemoteDataSource: sl()));
+  // sl.registerLazySingleton<SettingRepository>(
+  //         () => SettingRepositoryImpl( settingRemoteDataSource: sl()));
 
-  // Data Sources
-  sl.registerLazySingleton<SettingRemoteDataSource>(
-          () => SettingRemoteDataSourceImpl(apiConsumer: sl()));
+  // // Data Sources
+  // sl.registerLazySingleton<SettingRemoteDataSource>(
+  //         () => SettingRemoteDataSourceImpl(apiConsumer: sl()));
 
 
 }

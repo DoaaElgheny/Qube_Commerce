@@ -27,5 +27,7 @@ Future<void> initSplash() async {
 
   // Data Sources
   sl.registerLazySingleton<LangLocalDataSource>(() =>
-      LangLocalDataSourceImpl(sharedPreferences: sl(), apiConsumer: sl()));
+      LangLocalDataSourceImpl(sharedPreferences: sl(),
+      //  apiConsumer: sl()
+       ));
 }

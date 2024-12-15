@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import '../../../../core/api/http/failure.dart';
 import '../../../../core/error/Failure.dart';
 
 abstract class LangRepository {

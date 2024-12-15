@@ -7,10 +7,13 @@ import 'package:qubeCommerce/features/setting/presentation/pages/setting_screen.
 import 'package:qubeCommerce/features/wallet/presentation/pages/wallet.dart';
 
 import '../../../../config/locale/app_localizations.dart';
+import '../../../../core/api/http/http_export.dart';
+import '../../../../core/authentication/provider.dart';
 import '../../../../core/notification_firebase/fb_notifications.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/enums.dart';
+import '../../../../injection_container.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import '../cubit/buttomnavigationbar_cubit.dart';
 
@@ -26,6 +29,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen>
     with TickerProviderStateMixin, FbNotifications {
   @override
   void initState() {
+
     initializeForegroundNotificationForAndroid(context: context);
     manageNotificationAction(context: context);
     if (Platform.isIOS) requestNotificationPermissions();

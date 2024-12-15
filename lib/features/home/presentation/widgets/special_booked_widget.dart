@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qubeCommerce/config/locale/app_localizations.dart';
+import 'package:qubeCommerce/core/api/end_points.dart';
 import 'package:qubeCommerce/core/shared_widgets/elevated_btn.dart';
 import 'package:qubeCommerce/core/shared_widgets/elevated_button_full_width.dart';
 import 'package:qubeCommerce/core/utils/app_colors.dart';
@@ -69,8 +70,8 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                       Column(
                         children: [
                           if (widget.box != null) widget.box!,
-                          Image.asset(
-                            widget.image,
+                          Image.network(
+                            '${EndPoints.baseUrl}${widget.image}',
                             height: 176,
                             width: double.infinity,
                             fit: BoxFit.cover,
@@ -241,7 +242,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                             ),
                           if (widget.showButton)
                             elevatedButtonWithoutWidth(
-                              icon: Text(''),
+                              icon: const Text(''),
                               width: double.infinity,
                               height: 42,
                               primaryColor: AppColors.primaryColor,

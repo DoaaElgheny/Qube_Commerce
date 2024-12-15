@@ -1,3 +1,4 @@
+import '../../../../core/api/http/failure.dart';
 import '../../../../core/error/Failure.dart';
 import 'package:dartz/dartz.dart';
 

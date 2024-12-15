@@ -7,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:qubeCommerce/core/usecases/usecase.dart';
 import 'package:qubeCommerce/features/setting/presentation/cubit/setting_state.dart';
 import '../../../../config/locale/app_localizations.dart';
+import '../../../../core/api/http/failure.dart';
 import '../../../../core/error/Failure.dart';
 import '../../domain/usecases/delete_account.dart';
 

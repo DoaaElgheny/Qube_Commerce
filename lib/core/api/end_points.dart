@@ -11,13 +11,18 @@ final class EndPoints {
   static const String changeCurrentPassword =
       '${baseUrl}api/Auth/ChangeCurrentPassword';
   static const String forgetPassword = '${baseUrl}api/Auth/forgetPassword';
-static const String delete_account = '${baseUrl}api/Auth/delete_account';
+  static const String delete_account = '${baseUrl}api/Auth/delete_account';
 
 // user
   static const String myProfile = '${baseUrl}api/Users/me';
   static const String register = '${baseUrl}api/Users/register';
 
   //deals
+  static const String _deals = '${baseUrl}api/Deals';
+  static const String dealsAvailable = '$_deals/available';
+  static const String mydeals = '$_deals/mydeals';
+  static const String detailsDealById = '$_deals/details';
+  static const String joinDeal = '$_deals/join';
 
   //wallet
 }
