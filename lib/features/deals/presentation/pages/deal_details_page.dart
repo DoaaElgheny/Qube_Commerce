@@ -151,7 +151,7 @@ class DealDetailsPage extends StatelessWidget {
                               DealImagesCardWidget(pictures: deal?.pictures??[],),
                             const SizedBox(
                               height: 15,
-                            ),
+                            ), 
                             SizedBox(
                               //height: 106,
                               width: MediaQuery.of(context).size.width,
