@@ -14,12 +14,16 @@ import 'home_state.dart';
 
 
 class HomeCubit extends Cubit<HomeState> {
-  final GetAvaliableDealsListUseCase getAvaliableDealsListUseCase;
-  final GetMyDealsListUseCase getMyDealsListUseCase;
+  // final GetAvaliableDealsListUseCase getAvaliableDealsListUseCase;
+  // final GetMyDealsListUseCase getMyDealsListUseCase;
 
 
-  HomeCubit({required this.getAvaliableDealsListUseCase,
-   required this.getMyDealsListUseCase}) : super(HomeState(
+  HomeCubit(
+  //   {
+  //   required this.getAvaliableDealsListUseCase,
+  //  required this.getMyDealsListUseCase
+  //  }
+   ) : super(HomeState(
     avaliableDealsList: null, myDealsList: null,
   ));
 

@@ -1,13 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:qubeCommerce/features/deals/data/models/join_deal_model.dart';
 
 import '../../../../core/api/http/failure.dart';
 import '../../../../core/api/http/failure_handler.dart';
+import '../../../../core/api/http/http_export.dart';
 import '../../../../injection_container.dart';
-import '../../domain/repositories/deals_repo.dart';
-import '../datasources/deals_remote_datasource.dart';
-import '../models/deals_entity.dart';
+import '../../deals_export.dart';
 
 class DealsRepoImpl implements DealsRepo {
   final DealsRemoteDatasource _remoteDatasourse =
@@ -15,11 +13,12 @@ class DealsRepoImpl implements DealsRepo {
 
   final _failureHandler = serviceLocator<FailureHandler>();
   @override
-  Future<Either<Failure, DealsEntity>> getAvailableDeals(
-      {required int pageNumber, required int pageSize}) async {
+  Future<Either<Failure, BaseResponse>> getAvailableDeals(
+      {required GetAvailableDealsModel getAvailableDealsModel}) async {
     try {
       final failureOrDone = await _remoteDatasourse.getAvailableDeals(
-          pageNumber: pageNumber, pageSize: pageSize);
+        getAvailableDealsModel: getAvailableDealsModel,
+      );
       return Right(failureOrDone);
     } on DioException catch (e) {
       return Left(_failureHandler.getFailureType(e));
@@ -27,7 +26,7 @@ class DealsRepoImpl implements DealsRepo {
   }
 
   @override
-  Future<Either<Failure, DealsEntity>> getMyDeals(
+  Future<Either<Failure, BaseResponse>> getMyDeals(
       {required int pageNumber, required int pageSize}) async {
     try {
       final failureOrDone = await _remoteDatasourse.getMyDeals(
@@ -39,7 +38,7 @@ class DealsRepoImpl implements DealsRepo {
   }
 
   @override
-  Future<Either<Failure, DealsEntity>> getDetailsById({required int id}) async {
+  Future<Either<Failure, BaseResponse>> getDetailsById({required int id}) async {
     try {
       final failureOrDone = await _remoteDatasourse.getDetailsById(id: id);
       return Right(failureOrDone);
@@ -49,7 +48,7 @@ class DealsRepoImpl implements DealsRepo {
   }
 
   @override
-  Future<Either<Failure, DealsEntity>> joinDeal(
+  Future<Either<Failure, BaseResponse>> joinDeal(
       {required JoinDealModel joinDealModel}) async {
     try {
       final failureOrDone =

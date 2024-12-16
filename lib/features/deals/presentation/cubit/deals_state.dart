@@ -11,13 +11,16 @@ abstract class DealsState extends Equatable {
 
 class DealsInitial extends DealsState {}
 
-class DealsLoadingSttete extends DealsState {}
+class DealsLoadingState extends DealsState {}
 
 class DealsLoadedState extends DealsState {}
 
-class GetMyDealsLoadingSttete extends DealsState {}
+class GetMyDealsLoadingState extends DealsState {}
 
 class GetMyDealsLoadedState extends DealsState {}
+
+class GetDetailsOfDealsLoadingState extends DealsState {}
+class GetDetailsOfDealsLoadedState extends DealsState {}
 
 class DealsErrorState extends DealsState {
   const DealsErrorState({required String super.message, super.title});

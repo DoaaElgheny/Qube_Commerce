@@ -12,6 +12,7 @@ import '../../features/auth/presentation/register/view/register_view.dart';
 import '../../features/auth/presentation/reset_password/view/reset_password_view.dart';
 import '../../features/auth/presentation/verify_otp/view/verify_otp_view.dart';
 import '../../features/bottomNavigationBar/presentation/pages/bottom_navigation_bar.dart';
+import '../../features/deals/presentation/pages/deal_details_page.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/splash/presentation/cubit/locale_cubit.dart';
 import '../../features/splash/presentation/pages/splash_screen.dart';
@@ -21,12 +22,13 @@ class Routes {
 
   // static const String loginScreen = '/login';
   static const String homeScreen = '/homeScreen';
-   static const String changeLanguageScreen = '/changeLanguageScreen';
+  static const String changeLanguageScreen = '/changeLanguageScreen';
 
   // static const String signUpScreen = '/signUpScreen';
 
   static const String bottomNavigationBarScreen = '/bottomNavigationBarScreen';
   static const String exploreScreen = '/exploreScreen';
+  static const String dealDetailsPageRoute = '/dealDetailsPage';
 }
 
 class AppRoutes {
@@ -148,6 +150,13 @@ class AppRoutes {
         return MaterialPageRoute(builder: ((context) {
           return ChangeLanguageScreen();
         }));
+      case Routes.dealDetailsPageRoute:
+        return MaterialPageRoute(
+          builder: ((context) {
+            return DealDetailsPage();
+          }),
+          settings: routeSettings,
+        );
       // case Routes.contactUsScreen:
       //   return MaterialPageRoute(builder: ((context) {
       //     return ContactUsScreen();

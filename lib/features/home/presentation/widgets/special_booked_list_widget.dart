@@ -1,9 +1,16 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:qubeCommerce/features/home/presentation/pages/home_screen.dart';
 import 'package:qubeCommerce/features/home/presentation/widgets/special_booked_widget.dart';
+import 'package:qubeCommerce/injection_container.dart';
 
-import '../pages/deal_details.dart';
+import '../../../../config/routes/app_routes.dart';
+import '../../../../shared/widget/loader_widget.dart';
+import '../../../deals/deals_export.dart';
+import '../../../deals/presentation/pages/deal_details_page.dart';
 
 class SpecialBookedListCard extends StatefulWidget {
   final List<SpecialBookedCard> specialBookedCard;
@@ -38,19 +45,26 @@ class _SpecialBookedListCardState extends State<SpecialBookedListCard> {
       itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
         return InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const DealDetailsScreen()),
-            );
+            DealsCubit.get(context).getDetailsOfDeals(
+                  widget.specialBookedCard[itemIndex].deal!.id!);
+            //  log('serviceLocator<DealsCubit>().dealsDetailsModel is ${DealsCubit.get(context).dealsDetailsModel}');
+
+            Navigator.pushNamed(context, Routes.dealDetailsPageRoute,
+                arguments:
+                    DealsCubit.get(context));
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const DealDetailsPage()),
+            // );
           },
           child: SpecialBookedCard(
-            image: widget.specialBookedCard[itemIndex].image,
-            date: widget.specialBookedCard[itemIndex].date,
-            productCategory:
-                widget.specialBookedCard[itemIndex].productCategory,
-            productName: widget.specialBookedCard[itemIndex].productName,
-            productNumber: widget.specialBookedCard[itemIndex].productNumber,
+            deal: widget.specialBookedCard[itemIndex].deal,
+            // image: widget.specialBookedCard[itemIndex].image,
+            // date: widget.specialBookedCard[itemIndex].date,
+            // productCategory:
+            //     widget.specialBookedCard[itemIndex].productCategory,
+            // productName: widget.specialBookedCard[itemIndex].productName,
+            // productNumber: widget.specialBookedCard[itemIndex].productNumber,
             svgPath1: widget.specialBookedCard[itemIndex].svgPath1,
             svgPath2: widget.specialBookedCard[itemIndex].svgPath2,
             box: widget.specialBookedCard[itemIndex].box,

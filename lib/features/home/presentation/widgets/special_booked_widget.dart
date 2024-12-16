@@ -7,16 +7,19 @@ import 'package:qubeCommerce/core/shared_widgets/elevated_btn.dart';
 import 'package:qubeCommerce/core/shared_widgets/elevated_button_full_width.dart';
 import 'package:qubeCommerce/core/utils/app_colors.dart';
 
-import '../pages/deal_details.dart';
+import '../../../../config/routes/app_routes.dart';
+import '../../../../core/utils/app_utils.dart';
+import '../../../deals/deals_export.dart';
+import '../../../deals/presentation/pages/deal_details_page.dart';
 
 class SpecialBookedCard extends StatefulWidget {
-  final String image;
-  final String productCategory;
-  final String productName;
-  final int? productNumber;
+  // final String image;
+  // final String productCategory;
+  // final String productName;
+  // final int? productNumber;
   final String svgPath1;
   final String? svgPath2;
-  final String date;
+  // final String date;
   final Container? box;
   final double? height;
   final bool showButton;
@@ -24,24 +27,24 @@ class SpecialBookedCard extends StatefulWidget {
   final bool showNumberOfPeople;
   final LinearProgressIndicator? linearProgressIndicator;
   final bool? showCarouselSliderTwo;
-
-  const SpecialBookedCard({
-    super.key,
-    required this.image,
-    required this.productCategory,
-    required this.productName,
-    required this.svgPath1,
-    required this.date,
-    this.svgPath2,
-    this.box,
-    this.height = 312,
-    this.showButton = true,
-    this.numberOfPeople,
-    this.productNumber,
-    this.showNumberOfPeople = false,
-    this.linearProgressIndicator,
-    this.showCarouselSliderTwo = false,
-  });
+  final DealModel? deal;
+  const SpecialBookedCard(
+      {super.key,
+      // required this.image,
+      // required this.productCategory,
+      // required this.productName,
+      required this.svgPath1,
+      // required this.date,
+      this.svgPath2,
+      this.box,
+      this.height = 312,
+      this.showButton = true,
+      this.numberOfPeople,
+      // this.productNumber,
+      this.showNumberOfPeople = false,
+      this.linearProgressIndicator,
+      this.showCarouselSliderTwo = false,
+      required this.deal});
 
   @override
   _SpecialBookedCardState createState() => _SpecialBookedCardState();
@@ -71,7 +74,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                         children: [
                           if (widget.box != null) widget.box!,
                           Image.network(
-                            '${EndPoints.baseUrl}${widget.image}',
+                            '${EndPoints.baseUrl}${widget.deal!.picture!.filePath}',
                             height: 176,
                             width: double.infinity,
                             fit: BoxFit.cover,
@@ -99,7 +102,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: Text(
-                                        widget.productCategory,
+                                        widget.deal?.categoryTitle ?? '',
                                         style: TextStyle(
                                           color: AppColors.greyTextColor,
                                           fontSize: 12,
@@ -107,7 +110,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       ),
                                     ),
                                     Text(
-                                      widget.productName,
+                                      widget.deal?.name ?? '',
                                       style: TextStyle(
                                         color: AppColors.greyTextDarkColor,
                                         fontSize: 16,
@@ -125,7 +128,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                         Text(
                                           widget.showNumberOfPeople
                                               ? '${widget.numberOfPeople ?? 0}'
-                                              : '${widget.productNumber ?? 0} request',
+                                              : '${widget.deal?.participantsCount ?? 0} request',
                                           style: TextStyle(
                                             fontSize:
                                                 widget.showCarouselSliderTwo!
@@ -150,7 +153,9 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                     Row(
                                       children: [
                                         Text(
-                                          widget.date,
+                                          AppUtils.formatDateToString(
+                                                  widget.deal?.startDate) ??
+                                              '',
                                           style: TextStyle(
                                             color: AppColors.greyTextColor,
                                             fontSize: 16,
@@ -247,14 +252,14 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                               height: 42,
                               primaryColor: AppColors.primaryColor,
                               onpressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const DealDetailsScreen()),
-                                );
+                                DealsCubit.get(context)
+                                    .getDetailsOfDeals(widget.deal!.id!);
+                                Navigator.pushNamed(
+                                    context, Routes.dealDetailsPageRoute,
+                                    arguments: DealsCubit.get(context));
                               },
-                              title: AppLocalizations.of(context)!.translate('View_details')!,
+                              title: AppLocalizations.of(context)!
+                                  .translate('View_details')!,
                               loading: false,
                             ),
                         ],

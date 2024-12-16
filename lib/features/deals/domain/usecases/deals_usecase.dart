@@ -1,23 +1,21 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/api/http/failure.dart';
+import '../../../../core/api/http/http_export.dart';
 import '../../../../injection_container.dart';
-import '../../data/models/deals_entity.dart';
 import '../../deals_export.dart';
-import '../repositories/deals_repo.dart';
 
 class DealsUsecase {
   final DealsRepo _repo = serviceLocator<DealsRepo>();
 
-  Future<Either<Failure, DealsEntity>> getAvailableDeals(
-      {required int pageNumber, required int pageSize}) async {
+  Future<Either<Failure, BaseResponse>> getAvailableDeals(
+      {required GetAvailableDealsModel getAvailableDealsModel}) async {
     return await _repo.getAvailableDeals(
-      pageNumber: pageNumber,
-      pageSize: pageSize,
+      getAvailableDealsModel: getAvailableDealsModel,
     );
   }
 
-  Future<Either<Failure, DealsEntity>> getMyDeals(
+  Future<Either<Failure, BaseResponse>> getMyDeals(
       {required int pageNumber, required int pageSize}) async {
     return await _repo.getMyDeals(
       pageNumber: pageNumber,
@@ -25,13 +23,13 @@ class DealsUsecase {
     );
   }
 
-  Future<Either<Failure, DealsEntity>> getDetailsById({
+  Future<Either<Failure, BaseResponse>> getDetailsById({
     required int id,
   }) async {
     return await _repo.getDetailsById(id: id);
   }
 
-  Future<Either<Failure, DealsEntity>> joinDeal({
+  Future<Either<Failure, BaseResponse>> joinDeal({
     required JoinDealModel joinDealModel,
   }) async {
     return await _repo.joinDeal(joinDealModel: joinDealModel);

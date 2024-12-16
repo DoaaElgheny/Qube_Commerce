@@ -7,6 +7,7 @@ import 'package:qubeCommerce/core/authentication/provider.dart';
 import 'package:qubeCommerce/core/prefs/my_shared_prefs.dart';
 import 'package:qubeCommerce/core/shared_widgets/elevated_btn.dart';
 import 'package:qubeCommerce/core/utils/app_colors.dart';
+import 'package:qubeCommerce/core/utils/app_utils.dart';
 import 'package:qubeCommerce/features/auth/presentation/login/view/login.dart';
 import 'package:qubeCommerce/features/deals/data/models/deal_parameter.dart';
 import 'package:qubeCommerce/features/deals/presentation/cubit/deals_cubit.dart';
@@ -313,15 +314,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         SpecialBookedListCard(
                           specialBookedCard: cubit.myDeals.map((deal) {
                             return SpecialBookedCard(
-                              image: deal!.picture!.filePath!,
-                              productCategory: deal.categoryTitle!,
-                              productName: deal.name!,
-                              productNumber: deal.participantsCount,
+                              // image: deal!.picture!.filePath!,
+                              // productCategory: deal.categoryTitle!,
+                              // productName: deal.name!,
+                              // productNumber: deal.participantsCount,
+                              deal: deal,
                               svgPath1:
                                   'assets/icons/overview_section/Bag 1.svg',
                               svgPath2:
                                   'assets/icons/overview_section/Calender 1.svg',
-                              date: '2024-10-10',
+                              // date: '2024-10-10',
                             );
                           }).toList(),
                         ),
@@ -385,15 +387,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         SpecialBookedListCard(
                           specialBookedCard: cubit.availableDeals.map((deal) {
                             return SpecialBookedCard(
-                              image: deal!.picture!.filePath!,
-                              productCategory: deal.categoryTitle!,
-                              productName: deal.name!,
-                              productNumber: deal.participantsCount,
+                              deal: deal,
+                              // image: deal!.picture!.filePath!,
+                              // productCategory: deal.categoryTitle!,
+                              // productName: deal.name!,
+                              // productNumber: deal.participantsCount,
                               svgPath1:
                                   'assets/icons/overview_section/Bag 1.svg',
                               svgPath2:
                                   'assets/icons/overview_section/Calender 1.svg',
-                              date: '2024-10-10',
+                              // date: AppUtils.formatDateToString(deal.startDate!)??'',
                             );
                           }).toList(),
                         ),
