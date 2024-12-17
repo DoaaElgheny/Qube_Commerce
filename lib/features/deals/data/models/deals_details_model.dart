@@ -20,6 +20,7 @@ class DealsDetailsModel {
   final String? categoryTitle;
   final List<Picture>? pictures;
   final List<CampaignHistoriesModel>? campaignHistories;
+  final int? joiners;
   DealsDetailsModel({
     this.id,
     this.name,
@@ -35,6 +36,7 @@ class DealsDetailsModel {
     this.categoryTitle,
     this.pictures,
     this.campaignHistories,
+    this.joiners,
   });
 
   DealsDetailsModel copyWith({
@@ -52,6 +54,7 @@ class DealsDetailsModel {
     String? categoryTitle,
     List<Picture>? pictures,
     List<CampaignHistoriesModel>? campaignHistories,
+    int? joiners,
   }) {
     return DealsDetailsModel(
       id: id ?? this.id,
@@ -69,6 +72,7 @@ class DealsDetailsModel {
       categoryTitle: categoryTitle ?? this.categoryTitle,
       pictures: pictures ?? this.pictures,
       campaignHistories: campaignHistories ?? this.campaignHistories,
+      joiners: joiners ?? this.joiners,
     );
   }
 
@@ -88,6 +92,7 @@ class DealsDetailsModel {
       'categoryTitle': categoryTitle,
       'pictures': pictures?.map((x) => x.toMap()).toList(),
       'campaignHistories': campaignHistories?.map((x) => x.toMap()).toList(),
+      'joiners': joiners,
     };
   }
 
@@ -113,19 +118,21 @@ class DealsDetailsModel {
           map['categoryTitle'] != null ? map['categoryTitle'] as String : null,
       pictures: map['pictures'] != null
           ? List<Picture>.from(
-              (map['pictures']).map<Picture?>(
+              (map['pictures'] ).map<Picture?>(
                 (x) => Picture.fromMap(x as Map<String, dynamic>),
               ),
             )
           : null,
       campaignHistories: map['campaignHistories'] != null
           ? List<CampaignHistoriesModel>.from(
-              (map['campaignHistories']).map<CampaignHistoriesModel?>(
+              (map['campaignHistories'] )
+                  .map<CampaignHistoriesModel?>(
                 (x) =>
                     CampaignHistoriesModel.fromMap(x as Map<String, dynamic>),
               ),
             )
           : null,
+      joiners: map['joiners'] != null ? map['joiners'] as int : null,
     );
   }
 
@@ -136,7 +143,7 @@ class DealsDetailsModel {
 
   @override
   String toString() {
-    return 'DealsDetailsModel(id: $id, name: $name, startDate: $startDate, endDate: $endDate, profitPercentage: $profitPercentage, expectedProfit: $expectedProfit, expectedRequestsCount: $expectedRequestsCount, status: $status, campaignCode: $campaignCode, statusTitle: $statusTitle, categoryId: $categoryId, categoryTitle: $categoryTitle, pictures: $pictures, campaignHistories: $campaignHistories)';
+    return 'DealsDetailsModel(id: $id, name: $name, startDate: $startDate, endDate: $endDate, profitPercentage: $profitPercentage, expectedProfit: $expectedProfit, expectedRequestsCount: $expectedRequestsCount, status: $status, campaignCode: $campaignCode, statusTitle: $statusTitle, categoryId: $categoryId, categoryTitle: $categoryTitle, pictures: $pictures, campaignHistories: $campaignHistories, joiners: $joiners)';
   }
 
   @override
@@ -156,7 +163,8 @@ class DealsDetailsModel {
         other.categoryId == categoryId &&
         other.categoryTitle == categoryTitle &&
         listEquals(other.pictures, pictures) &&
-        listEquals(other.campaignHistories, campaignHistories);
+        listEquals(other.campaignHistories, campaignHistories) &&
+        other.joiners == joiners;
   }
 
   @override
@@ -174,6 +182,7 @@ class DealsDetailsModel {
         categoryId.hashCode ^
         categoryTitle.hashCode ^
         pictures.hashCode ^
-        campaignHistories.hashCode;
+        campaignHistories.hashCode ^
+        joiners.hashCode;
   }
 }

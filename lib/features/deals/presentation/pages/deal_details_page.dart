@@ -148,10 +148,12 @@ class DealDetailsPage extends StatelessWidget {
                             const SizedBox(
                               height: 15,
                             ),
-                              DealImagesCardWidget(pictures: deal?.pictures??[],),
+                            DealImagesCardWidget(
+                              pictures: deal?.pictures ?? [],
+                            ),
                             const SizedBox(
                               height: 15,
-                            ), 
+                            ),
                             SizedBox(
                               //height: 106,
                               width: MediaQuery.of(context).size.width,
@@ -183,10 +185,10 @@ class DealDetailsPage extends StatelessWidget {
                                                 ),
                                               ),
                                               const SizedBox(width: 5),
-                                              const Text(
-                                                // '${deal.participantsCount}', // Dynamic count
-                                                '0',
-                                                style: TextStyle(
+                                              Text(
+                                                '${deal!.joiners}', // Dynamic count
+
+                                                style: const TextStyle(
                                                   fontSize: 20,
                                                   color: Color(0XFF06A6F1),
                                                   fontWeight: FontWeight.w600,
@@ -218,7 +220,7 @@ class DealDetailsPage extends StatelessWidget {
                                             child: LinearProgressIndicator(
                                               borderRadius:
                                                   BorderRadius.circular(10),
-                                              value: deal!.profitPercentage,
+                                              value: deal.profitPercentage,
                                               backgroundColor: Colors.grey[300],
                                               valueColor:
                                                   const AlwaysStoppedAnimation<

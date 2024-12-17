@@ -12,6 +12,7 @@ import 'features/bottomNavigationBar/injection_container.dart';
 import 'features/deals/deals_export.dart';
 import 'features/home/injection_container.dart';
 import 'features/splash/injection_container.dart';
+import 'features/wallet/wallet_export.dart';
 
 final sl = GetIt.instance;
 //! I make this 'serviceLocator' to can know the get_it service I use.
@@ -55,11 +56,16 @@ Future<void> init() async {
 
   serviceLocator.registerLazySingleton<DealsRemoteDatasource>(
       () => DealsRemoteDatasourceImpl());
+  serviceLocator.registerLazySingleton<WalletRemoteDatasource>(
+      () => WalletRemoteDatasourceImpl());
   //! ################################# Repository #################################
 
   serviceLocator.registerLazySingleton<DealsRepo>(() => DealsRepoImpl());
+  serviceLocator.registerLazySingleton<WalletRepo>(() => WalletRepoImpl());
   //! ################################# Usecases #################################
   serviceLocator.registerLazySingleton(() => DealsUsecase());
+  serviceLocator.registerLazySingleton(() => WalletUsecase());
   //! ############################### Bloc Or Cubit ###############################
   serviceLocator.registerFactory(() => DealsCubit());
+  serviceLocator.registerSingleton(WalletCubit());
 }

@@ -28,14 +28,14 @@ final CampaignHistoriesModel campaignHistoriesModel;
             const SizedBox(
               height: 15,
             ),
-            _buildRow(
-              'assets/images/png/Time2.png',
-              "مدة الحملة",
-              "14 يوم",
-            ),
-            const SizedBox(
-              height: 15,
-            ),
+            // _buildRow(
+            //   'assets/images/png/Time2.png',
+            //   "مدة الحملة",
+            //   "14 يوم",
+            // ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
             _buildRow(
               'assets/images/png/tick.png',
               "الطلبات الناجحة",

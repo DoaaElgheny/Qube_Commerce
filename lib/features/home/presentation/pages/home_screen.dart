@@ -18,6 +18,7 @@ import 'package:qubeCommerce/injection_container.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../core/shared_widgets/app_text.dart';
+import '../../../wallet/wallet_export.dart';
 import '../../domain/entities/popurlar_destinations_list.dart';
 import '../widgets/special_booked_list_widget.dart';
 import '../widgets/special_booked_widget.dart';
@@ -98,10 +99,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(
-        create: (context) => serviceLocator<DealsCubit>()
-          ..getAvailableDeals()
-          ..getMyDeals(),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => serviceLocator<DealsCubit>()
+              ..getAvailableDeals()
+              ..getMyDeals(),
+          ),
+          BlocProvider(
+            create: (context) => serviceLocator<WalletCubit>()..getMyWallets(),
+          ),
+        ],
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -190,71 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 88.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: ContainerBox(
-                          text: AppLocalizations.of(context)!
-                              .translate('Expected_profits')!,
-                          number: '30.000',
-                          onTap: () {},
-                          boxColor: AppColors.productTextBlueColor,
-                          textColor: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 168.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: ContainerBox(
-                          text: AppLocalizations.of(context)!
-                              .translate('my_balance')!,
-                          number: '20.000',
-                          onTap: () {},
-                          boxColor: Colors.white,
-                          textColor: AppColors.productTextBlueColor,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 240),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          elevatedButtonWithoutWidth(
-                            height: 48,
-                            width: 175,
-                            primaryColor: Colors.blue.shade900,
-                            onpressed: () {},
-                            title: AppLocalizations.of(context)!
-                                .translate('Withdraw_balance')!,
-                            borderRadius: 10,
-                            icon: SvgPicture.asset(
-                              'assets/icons/home_icons/withdraw_balance.svg',
-                              width: 25,
-                            ),
-                            loading: false,
-                          ),
-                          const SizedBox(width: 17),
-                          elevatedButtonWithoutWidth(
-                            height: 48,
-                            width: 163,
-                            primaryColor: Colors.blue.shade900,
-                            borderRadius: 10,
-                            onpressed: () {},
-                            title: AppLocalizations.of(context)!
-                                .translate('Add_balance')!,
-                            icon: SvgPicture.asset(
-                              'assets/icons/home_icons/withdraw_balance.svg',
-                              width: 25,
-                            ),
-                            loading: false,
-                          ),
-                        ],
-                      ),
-                    )
+                    WalletCardHomeWidget()
                   ],
                 ),
                 //SizedBox(height: 1.h),
@@ -288,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    '12${AppLocalizations.of(context)!.translate('deal')!}',
+                                    '12//${AppLocalizations.of(context)!.translate('deal')!}',
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.grey.shade600,
