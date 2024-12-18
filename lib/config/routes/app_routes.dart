@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qubeCommerce/features/deals/presentation/pages/all_avaliable_deal.dart';
 import 'package:qubeCommerce/features/setting/presentation/pages/change_lang_screen.dart';
 import 'package:qubeCommerce/injection_container.dart' as di;
 
@@ -29,6 +30,8 @@ class Routes {
   static const String bottomNavigationBarScreen = '/bottomNavigationBarScreen';
   static const String exploreScreen = '/exploreScreen';
   static const String dealDetailsPageRoute = '/dealDetailsPage';
+static const String allAvaliabledDeal = '/allAvaliabledDeal';
+
 }
 
 class AppRoutes {
@@ -154,6 +157,13 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: ((context) {
             return DealDetailsPage();
+          }),
+          settings: routeSettings,
+        );
+        case Routes.allAvaliabledDeal:
+        return MaterialPageRoute(
+          builder: ((context) {
+            return AllAvaliableScreen();
           }),
           settings: routeSettings,
         );

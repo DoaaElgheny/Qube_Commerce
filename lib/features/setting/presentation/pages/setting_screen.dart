@@ -23,143 +23,138 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(5.0.w),
-          child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.max,
-                children: [
+            padding: EdgeInsets.all(5.0.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                // AppBarLogo(
+                //   onPress: () {
+                //     Navigator.pop(context);
+                //   },
+                // ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                AppText(
+                  text: AppLocalizations.of(context)!.translate('setting')!,
+                  color: AppColors.black,
+                  weight: FontWeight.w700,
+                  fontSize: 24,
+                  align: TextAlign.start,
+                ),
+                SizedBox(
+                  height: 3.h,
+                ),
+                // SettingWidget(
+                //   onPress: () {
+                //     Navigator.pushNamed(context, Routes.changePasswordScreen);
+                //   },
+                //   title: AppLocalizations.of(context)!.translate('change_email')!,
+                //   color: AppColors.drawerItem,
+                //   image: ImageAssets.chnage_email,
+                // ),
+                // SizedBox(
+                //   height: 3.h,
+                // ),
+                // SettingWidget(
+                //   colorIcon: AppColors.primaryColor,
+                //   onPress: () {
+                //     // Navigator.pushNamed(context, Routes.changePasswordScreen);
+                //   },
+                //   title: AppLocalizations.of(context)!.translate('change_password')!,
+                //   colorText: AppColors.primaryColor,
+                //   image: ImageAssets.person,
+                // ),
 
-                  // AppBarLogo(
-                  //   onPress: () {
-                  //     Navigator.pop(context);
-                  //   },
-                  // ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  AppText(
-                    text: AppLocalizations.of(context)!
-                        .translate('setting')!,
-                    color: AppColors.black,
-                    weight: FontWeight.w700,
-                    fontSize: 24,
-                    align: TextAlign.start,
-                  ),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  // SettingWidget(
-                  //   onPress: () {
-                  //     Navigator.pushNamed(context, Routes.changePasswordScreen);
-                  //   },
-                  //   title: AppLocalizations.of(context)!.translate('change_email')!,
-                  //   color: AppColors.drawerItem,
-                  //   image: ImageAssets.chnage_email,
-                  // ),
-                  // SizedBox(
-                  //   height: 3.h,
-                  // ),
-                  // SettingWidget(
-                  //   colorIcon: AppColors.primaryColor,
-                  //   onPress: () {
-                  //     // Navigator.pushNamed(context, Routes.changePasswordScreen);
-                  //   },
-                  //   title: AppLocalizations.of(context)!.translate('change_password')!,
-                  //   colorText: AppColors.primaryColor,
-                  //   image: ImageAssets.person,
-                  // ),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  SettingWidget(
-                    colorIcon: AppColors.primaryColor,
-                    onPress: () {
-                      //Navigator.pushNamed(context, Routes.contactUsScreen);
-                    },
-                    title: AppLocalizations.of(context)!.translate('contact_us')!,
-                    colorText: AppColors.primaryColor,
-                    image: ImageAssets.person,
-                  ),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  SettingWidget(
-                    colorIcon: AppColors.primaryColor,
-                    onPress: () {
-                      if (Platform.isAndroid) {
-                        Share.share('Download Qube Commerce https://play.google.com/store/apps/details?id=',
-                            subject: 'Download Qube Commerce App');
+                SizedBox(
+                  height: 3.h,
+                ),
+                SettingWidget(
+                  colorIcon: AppColors.primaryColor,
+                  onPress: () {
+                    if (Platform.isAndroid) {
+                      Share.share(
+                          'Download Qube Commerce https://play.google.com/store/apps/details?id=',
+                          subject: 'Download Qube Commerce App');
+                    } else if (Platform.isIOS) {
+                      Share.share(
+                          'Download Qube Commerce https://apps.apple.com/',
+                          subject: 'Download Qube Commerce App');
+                    }
+                  },
+                  title: AppLocalizations.of(context)!
+                      .translate('invite_friends')!,
+                  colorText: AppColors.primaryColor,
+                  image: ImageAssets.person,
+                ),
+                SizedBox(
+                  height: 3.h,
+                ),
 
-                      } else if (Platform.isIOS) {
-                        Share.share('Download Qube Commerce https://apps.apple.com/',
-                            subject: 'Download Qube Commerce App');
-                      }
-
-                    },
-                    title: AppLocalizations.of(context)!.translate('invite_friends')!,
-                    colorText: AppColors.primaryColor,
-                    image: ImageAssets.person,
-                  ),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  SettingWidget(
-                    onPress: () {
-                      Constants.showLogoutOrDeleteAccount(
-                          context: context,
-                          onPress: () async {
-                            Navigator.pop(context);
-                            await context.read<SettingCubit>().deleteAccount(context: context);
-                          }, isLogout: false);
-                    },
-                    title: AppLocalizations.of(context)!.translate('delete_account')!,
-colorText: Colors.red,
-colorIcon: Colors.red,
-                    image: ImageAssets.person,
-                  ),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  SettingWidget(
-                   
-                    onPress: () {
-                      Navigator.pushNamed(context, Routes.changeLanguageScreen);
-                      },
-                    title: AppLocalizations.of(context)!.translate('language')!,
-                    colorText: AppColors.primaryColor,
-                    image: ImageAssets.person, colorIcon: AppColors.primaryColor,
-                  ),
-                   SizedBox(
-                    height: 3.h,
-                  ),
-                  SettingWidget(
-                    onPress: () async{
-                        await AuthenticationProvider.instance.logout();
-          if (context.mounted) {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              LoginView.routeName,
-              (r) => false,
-            );
-          }
-                      },
-                    title: "تسجيل الخروج",
-                    colorText: AppColors.primaryColor,
-                    image: ImageAssets.person, colorIcon: AppColors.primaryColor,
-                  ),
-                ],
-              )
-            ),
-        ),
+                SettingWidget(
+                  isLang: true,
+                  onPress: () {
+                   // Navigator.pushNamed(context, Routes.changeLanguageScreen);
+                  },
+                  title: AppLocalizations.of(context)!.translate('language')!,
+                  colorText: AppColors.primaryColor,
+                  image: ImageAssets.person,
+                  colorIcon: AppColors.primaryColor,
+                ),
+                SizedBox(
+                  height: 3.h,
+                ),
+                SettingWidget(
+                  onPress: () async {
+                    await AuthenticationProvider.instance.logout();
+                    if (context.mounted) {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        LoginView.routeName,
+                        (r) => false,
+                      );
+                    }
+                  },
+                  title: "تسجيل الخروج",
+                  colorText: AppColors.primaryColor,
+                  image: ImageAssets.person,
+                  colorIcon: AppColors.primaryColor,
+                ),
+                 SizedBox(
+                  height: 3.h,
+                ),
+                SettingWidget(
+                  onPress: () {
+                    Constants.showLogoutOrDeleteAccount(
+                        context: context,
+                        onPress: () async {
+                          Navigator.pop(context);
+                          await context
+                              .read<SettingCubit>()
+                              .deleteAccount(context: context);
+                        },
+                        isLogout: false);
+                  },
+                  title: AppLocalizations.of(context)!
+                      .translate('delete_account')!,
+                  colorText: Colors.red,
+                  colorIcon: Colors.red,
+                  image: ImageAssets.person,
+                ),
+                SizedBox(
+                  height: 3.h,
+                ),
+              ],
+            )),
+      ),
     );
   }
 }

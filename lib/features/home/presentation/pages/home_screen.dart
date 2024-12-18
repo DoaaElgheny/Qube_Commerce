@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qubeCommerce/config/locale/app_localizations.dart';
+import 'package:qubeCommerce/config/routes/app_routes.dart';
 import 'package:qubeCommerce/core/authentication/provider.dart';
 import 'package:qubeCommerce/core/prefs/my_shared_prefs.dart';
 import 'package:qubeCommerce/core/shared_widgets/elevated_btn.dart';
@@ -33,69 +34,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchControllerHome = TextEditingController();
 
-  List<PopurlarDestinations> popurlarDestinations = [
-    PopurlarDestinations(
-        image:
-            'https://vid.alarabiya.net/images/2021/07/24/67c8cb2b-20b1-4417-9dbe-888728515ee6/67c8cb2b-20b1-4417-9dbe-888728515ee6.jpeg?width=801&format=jpg',
-        title: 'AL Riyadh',
-        subTitle: '400 Stays'),
-    PopurlarDestinations(
-        image:
-            'https://vid.alarabiya.net/images/2021/07/24/05d6e180-87d2-4fd8-b906-ca66539d5246/05d6e180-87d2-4fd8-b906-ca66539d5246.jpg?width=801&format=jpg',
-        title: 'AL Riyadh',
-        subTitle: '400 Stays'),
-    PopurlarDestinations(
-        image:
-            'https://vid.alarabiya.net/images/2021/07/24/66633996-384c-47c6-b28c-f4e10a28214f/66633996-384c-47c6-b28c-f4e10a28214f_16x9_1200x676.jpg?width=801&format=jpg',
-        title: 'AL Riyadh',
-        subTitle: '400 Stays'),
-    PopurlarDestinations(
-        image:
-            'https://vid.alarabiya.net/images/2021/07/24/66633996-384c-47c6-b28c-f4e10a28214f/66633996-384c-47c6-b28c-f4e10a28214f_16x9_1200x676.jpg?width=801&format=jpg',
-        title: 'AL Riyadh',
-        subTitle: '400 Stays'),
-    PopurlarDestinations(
-        image:
-            'https://vid.alarabiya.net/images/2021/07/24/66633996-384c-47c6-b28c-f4e10a28214f/66633996-384c-47c6-b28c-f4e10a28214f_16x9_1200x676.jpg?width=801&format=jpg',
-        title: 'AL Riyadh',
-        subTitle: '400 Stays')
-  ];
-  List<PopurlarDestinations> specialCategorie = [
-    PopurlarDestinations(
-        image:
-            'https://vid.alarabiya.net/images/2021/07/24/67c8cb2b-20b1-4417-9dbe-888728515ee6/67c8cb2b-20b1-4417-9dbe-888728515ee6.jpeg?width=801&format=jpg',
-        title: 'AL Riyadh',
-        subTitle: '400 Stays'),
-    PopurlarDestinations(
-        image:
-            'https://vid.alarabiya.net/images/2021/07/24/05d6e180-87d2-4fd8-b906-ca66539d5246/05d6e180-87d2-4fd8-b906-ca66539d5246.jpg?width=801&format=jpg',
-        title: 'AL Riyadh',
-        subTitle: '400 Stays'),
-    PopurlarDestinations(
-        image:
-            'https://vid.alarabiya.net/images/2021/07/24/66633996-384c-47c6-b28c-f4e10a28214f/66633996-384c-47c6-b28c-f4e10a28214f_16x9_1200x676.jpg?width=801&format=jpg',
-        title: 'AL Riyadh',
-        subTitle: '400 Stays'),
-    PopurlarDestinations(
-        image:
-            'https://vid.alarabiya.net/images/2021/07/24/66633996-384c-47c6-b28c-f4e10a28214f/66633996-384c-47c6-b28c-f4e10a28214f_16x9_1200x676.jpg?width=801&format=jpg',
-        title: 'AL Riyadh',
-        subTitle: '400 Stays'),
-    PopurlarDestinations(
-        image:
-            'https://vid.alarabiya.net/images/2021/07/24/66633996-384c-47c6-b28c-f4e10a28214f/66633996-384c-47c6-b28c-f4e10a28214f_16x9_1200x676.jpg?width=801&format=jpg',
-        title: 'AL Riyadh',
-        subTitle: '400 Stays')
-  ];
-
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   context.read<HomeCubit>().getAvaliabledeals(DealParameter(PageNumber: 0,PageSize: 10));
-  //   context.read<HomeCubit>().getMyDeals(DealParameter(PageNumber: 0,PageSize: 10));
-
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -241,7 +179,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, Routes.allAvaliabledDeal);
+                                },
                                 child: Text(
                                   AppLocalizations.of(context)!
                                       .translate('View_all')!,
@@ -311,7 +252,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, Routes.allAvaliabledDeal);
+                                },
                                 child: Text(
                                   AppLocalizations.of(context)!
                                       .translate('View_all')!,
@@ -329,13 +273,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(height: 16),
                         SpecialBookedListCard(
+                          carouselHeight: 433,
                           specialBookedCard: cubit.availableDeals.map((deal) {
                             return SpecialBookedCard(
                               deal: deal,
-                              // image: deal!.picture!.filePath!,
-                              // productCategory: deal.categoryTitle!,
-                              // productName: deal.name!,
-                              // productNumber: deal.participantsCount,
+                              height: 420,
+                              box: true,
+                              showButton: false,
+                              numberOfPeople: deal!.participantsCount,
+                              showNumberOfPeople: true,
+                              linearProgressIndicator: LinearProgressIndicator(
+                                backgroundColor:
+                                    AppColors.backgroundProgressBarGreyColor,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    AppColors.green),
+                                color: Colors.transparent,
+                                minHeight: 12,
+                                value: 0.5,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              showCarouselSliderTwo: true,
+
                               svgPath1:
                                   'assets/icons/overview_section/Bag 1.svg',
                               svgPath2:
@@ -351,8 +309,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 // SpecialBookedListCard(
                 //   carouselHeight: 405,
+
                 //   specialBookedCard: [
                 //     SpecialBookedCard(
+                //       deal: null,
                 //       height: 395,
                 //       box: Container(
                 //         height: 45,
@@ -476,13 +436,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 //           ],
                 //         ),
                 //       ),
-                //       image:
-                //           'assets/images_new/products/ANIMAL KING _ pet food_ packaging.jpeg',
-                //       productCategory: 'Animal king',
-                //       productName: 'Turkey Rice',
-                //       svgPath1: 'assets/icons/overview_section/Team 1.svg',
-                //       svgPath2: null,
-                //       date: 'How profitable deal:',
+                //       // image:
+                //       //     'assets/images_new/products/ANIMAL KING _ pet food_ packaging.jpeg',
+                //       // productCategory: 'Animal king',
+                //       // productName: 'Turkey Rice',
+                //       // svgPath1: 'assets/icons/overview_section/Team 1.svg',
+                //       // svgPath2: null,
+                //       // date: 'How profitable deal:',
                 //       showButton: false,
                 //       numberOfPeople: 6,
                 //       showNumberOfPeople: true,

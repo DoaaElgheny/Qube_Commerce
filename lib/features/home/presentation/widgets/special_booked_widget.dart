@@ -20,7 +20,7 @@ class SpecialBookedCard extends StatefulWidget {
   final String svgPath1;
   final String? svgPath2;
   // final String date;
-  final Container? box;
+  final bool? box;
   final double? height;
   final bool showButton;
   final int? numberOfPeople;
@@ -58,226 +58,363 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
         borderRadius: BorderRadius.circular(15.0),
       ),
       elevation: 1,
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15.0),
-                    topRight: Radius.circular(15.0),
-                  ),
-                  child: CarouselSlider(
-                    items: [
-                      Column(
-                        children: [
-                          if (widget.box != null) widget.box!,
-                          Image.network(
-                            '${EndPoints.baseUrl}${widget.deal!.picture!.filePath}',
-                            height: 176,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 16,
-                              left: 8,
-                              right: 8,
-                              bottom: 1,
+      child: Column(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(15.0),
+                  topRight: Radius.circular(15.0),
+                ),
+                child: CarouselSlider(
+                  items: [
+                    Column(
+                      children: [
+                        if (widget.box == true) ...{
+                          Container(
+                            height: 45,
+                            decoration: BoxDecoration(
+                              color: AppColors.carouselSliderContainerColor,
                             ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 8,
-                                        horizontal: 6,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.greyColor,
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Text(
-                                        widget.deal?.categoryTitle ?? '',
-                                        style: TextStyle(
-                                          color: AppColors.greyTextColor,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.deal?.name ?? '',
-                                      style: TextStyle(
-                                        color: AppColors.greyTextDarkColor,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          widget.showNumberOfPeople
-                                              ? '${widget.numberOfPeople ?? 0}'
-                                              : '${widget.deal?.participantsCount ?? 0} request',
-                                          style: TextStyle(
-                                            fontSize:
-                                                widget.showCarouselSliderTwo!
-                                                    ? 20
-                                                    : 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: widget.showNumberOfPeople
-                                                ? AppColors.productTextBlueColor
-                                                : AppColors
-                                                    .productTextGreenColor,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        SvgPicture.asset(
-                                          widget.svgPath1,
-                                          width: widget.showCarouselSliderTwo!
-                                              ? 19.5
-                                              : 14.6,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          AppUtils.formatDateToString(
-                                                  widget.deal?.startDate) ??
-                                              '',
-                                          style: TextStyle(
-                                            color: AppColors.greyTextColor,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 7),
-                                        if (widget.svgPath2 != null)
-                                          SvgPicture.asset(
-                                            widget.svgPath2!,
-                                            width: 15,
-                                            colorFilter: ColorFilter.mode(
-                                              AppColors.productSvg2Color,
-                                              BlendMode.srcIn,
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          if (widget.linearProgressIndicator != null)
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                            child: Row(
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  width: 176,
-                                  child: widget.linearProgressIndicator,
-                                ),
-                              ],
-                            ),
-                          const SizedBox(height: 16),
-                          if (widget.showCarouselSliderTwo!)
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 8.0, right: 8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    height: 48,
-                                    width: 126,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          AppColors
-                                              .backgroundProgressBackgroundLighGreen,
-                                          AppColors
-                                              .backgroundProgressBackgroundDarkGreen,
-                                        ],
-                                      ),
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        'Join Deal!',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                  width: 55,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        AppColors.redLinearGradientLighter,
+                                        AppColors.redLinearGradientDarker,
+                                      ],
                                     ),
                                   ),
-                                  Column(
+                                  child: const Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Minimum to join:',
+                                        '4',
                                         style: TextStyle(
-                                          fontSize: 12,
-                                          color: AppColors.greyTextDarkColor,
+                                          fontSize: 16,
                                         ),
                                       ),
                                       Text(
-                                        '1000 EGP',
+                                        'hour',
                                         style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color:
-                                              AppColors.productTextGreenColor,
+                                          fontSize: 12,
                                         ),
                                       ),
                                     ],
                                   ),
+                                ),
+                                const SizedBox(width: 2),
+                                Container(
+                                  width: 55,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        AppColors.redLinearGradientLighter,
+                                        AppColors.redLinearGradientDarker,
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '31',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        'minutes',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 2),
+                                Container(
+                                  width: 55,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        AppColors.redLinearGradientLighter,
+                                        AppColors.redLinearGradientDarker,
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '44',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        'seconds',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 48),
+                                Container(
+                                  width: 55,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: AppColors
+                                        .carouselSliderContainerColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Join in:',
+                                      style: TextStyle(
+                                        color: AppColors
+                                            .redLinearGradientLighter,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                             
+                              ],
+                            ),
+                          ),
+                        },
+                        Image.network(
+                          '${EndPoints.baseUrl}${widget.deal!.picture!.filePath}',
+                          height: 176,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 16,
+                            left: 8,
+                            right: 8,
+                            bottom: 1,
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                   Text(
+                                    widget.deal?.name ?? '',
+                                    style: TextStyle(
+                                      color: AppColors.greyTextDarkColor,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.greyColor,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      widget.deal?.categoryTitle ?? '',
+                                      style: TextStyle(
+                                        color: AppColors.greyTextColor,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                 
                                 ],
                               ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                      Row(
+                                    children: [
+                                         if (widget.svgPath2 != null)
+                                        SvgPicture.asset(
+                                          widget.svgPath2!,
+                                          width: 15,
+                                          colorFilter: ColorFilter.mode(
+                                            AppColors.productSvg2Color,
+                                            BlendMode.srcIn,
+                                          ),
+                                        ),
+                                   
+                                        const SizedBox(width: 7),
+                                      Text(
+                                        AppUtils.formatDateToString(
+                                                widget.deal?.startDate) ??
+                                            '',
+                                        style: TextStyle(
+                                          color: AppColors.greyTextColor,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    
+                                   
+                                    ],
+                                  ),
+                               
+                                  Row(
+                                    children: [
+                                      Text(
+                                        widget.showNumberOfPeople
+                                            ? '${widget.numberOfPeople ?? 0}'
+                                            : '${widget.deal?.participantsCount ?? 0} request',
+                                        style: TextStyle(
+                                          fontSize:
+                                              widget.showCarouselSliderTwo!
+                                                  ? 20
+                                                  : 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: widget.showNumberOfPeople
+                                              ? AppColors.productTextBlueColor
+                                              : AppColors
+                                                  .productTextGreenColor,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      SvgPicture.asset(
+                                        widget.svgPath1,
+                                        width: widget.showCarouselSliderTwo!
+                                            ? 19.5
+                                            : 14.6,
+                                      ),
+                                    ],
+                                  ),
+                              
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (widget.linearProgressIndicator != null)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                width: 176,
+                                child: widget.linearProgressIndicator,
+                              ),
+                            ],
+                          ),
+                        const SizedBox(height: 16),
+                        if (widget.showCarouselSliderTwo!)
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 8.0, right: 8.0),
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                              
+                                Column(
+                                  children: [
+                                    Text(
+                                      'Minimum to join:',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.greyTextDarkColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${widget.deal!.minimumOrderValue} EGP',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            AppColors.productTextGreenColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              Container(
+                                  height: 48,
+                                  width: 126,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        AppColors
+                                            .backgroundProgressBackgroundLighGreen,
+                                        AppColors
+                                            .backgroundProgressBackgroundDarkGreen,
+                                      ],
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      'Join Deal!',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                
+                              ],
                             ),
-                          if (widget.showButton)
-                            elevatedButtonWithoutWidth(
-                              icon: const Text(''),
-                              width: double.infinity,
-                              height: 42,
-                              primaryColor: AppColors.primaryColor,
-                              onpressed: () {
-                                DealsCubit.get(context)
-                                    .getDetailsOfDeals(widget.deal!.id!);
-                                Navigator.pushNamed(
-                                    context, Routes.dealDetailsPageRoute,
-                                    arguments: DealsCubit.get(context));
-                              },
-                              title: AppLocalizations.of(context)!
-                                  .translate('View_details')!,
-                              loading: false,
-                            ),
-                        ],
-                      ),
-                    ],
-                    options: CarouselOptions(
-                      height: widget.height,
-                      enlargeCenterPage: true,
-                      scrollPhysics: const NeverScrollableScrollPhysics(),
-                      aspectRatio: 16 / 9,
-                      viewportFraction: 1.0,
+                          ),
+                      
+                        if (widget.showButton)
+                          elevatedButtonWithoutWidth(
+                            icon: const Text(''),
+                            width: double.infinity,
+                            height: 42,
+                            primaryColor: AppColors.primaryColor,
+                            onpressed: () {
+                              DealsCubit.get(context)
+                                  .getDetailsOfDeals(widget.deal!.id!);
+                              Navigator.pushNamed(
+                                  context, Routes.dealDetailsPageRoute,
+                                  arguments: DealsCubit.get(context));
+                            },
+                            title: AppLocalizations.of(context)!
+                                .translate('View_details')!,
+                            loading: false,
+                          ),
+                     
+                      ],
                     ),
+                  ],
+                  options: CarouselOptions(
+                    height: widget.height,
+                    enlargeCenterPage: true,
+                    scrollPhysics: const NeverScrollableScrollPhysics(),
+                    aspectRatio: 16 / 9,
+                    viewportFraction: 1.0,
                   ),
                 ),
-              ],
-            )
-          ],
-        ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
