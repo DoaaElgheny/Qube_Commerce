@@ -5,21 +5,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:qubeCommerce/config/locale/app_localizations.dart';
 import 'package:qubeCommerce/config/routes/app_routes.dart';
 import 'package:qubeCommerce/core/authentication/provider.dart';
-import 'package:qubeCommerce/core/prefs/my_shared_prefs.dart';
-import 'package:qubeCommerce/core/shared_widgets/elevated_btn.dart';
 import 'package:qubeCommerce/core/utils/app_colors.dart';
-import 'package:qubeCommerce/core/utils/app_utils.dart';
-import 'package:qubeCommerce/features/auth/presentation/login/view/login.dart';
-import 'package:qubeCommerce/features/deals/data/models/deal_parameter.dart';
-import 'package:qubeCommerce/features/deals/presentation/cubit/deals_cubit.dart';
-import 'package:qubeCommerce/features/home/presentation/cubit/home_cubit.dart';
-import 'package:qubeCommerce/features/home/presentation/cubit/home_state.dart';
-import 'package:qubeCommerce/features/home/presentation/widgets/container_box.dart';
 import 'package:qubeCommerce/injection_container.dart';
-import 'package:sizer/sizer.dart';
-
+import 'package:qubeCommerce/shared/widget/loader_widget.dart';
 import '../../../../core/shared_widgets/app_text.dart';
-import '../../domain/entities/popurlar_destinations_list.dart';
+import '../../../deals/deals_export.dart';
+import '../../../wallet/wallet_export.dart';
 import '../widgets/special_booked_list_widget.dart';
 import '../widgets/special_booked_widget.dart';
 
@@ -36,10 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(
-        create: (context) => serviceLocator<DealsCubit>()
-          ..getAvailableDeals()
-          ..getMyDeals(),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => serviceLocator<DealsCubit>()
+              ..getAvailableDeals()
+              ..getMyDeals(),
+          ),
+        ],
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -128,71 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 88.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: ContainerBox(
-                          text: AppLocalizations.of(context)!
-                              .translate('Expected_profits')!,
-                          number: '30.000',
-                          onTap: () {},
-                          boxColor: AppColors.productTextBlueColor,
-                          textColor: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 168.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: ContainerBox(
-                          text: AppLocalizations.of(context)!
-                              .translate('my_balance')!,
-                          number: '20.000',
-                          onTap: () {},
-                          boxColor: Colors.white,
-                          textColor: AppColors.productTextBlueColor,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 240),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          elevatedButtonWithoutWidth(
-                            height: 48,
-                            width: 175,
-                            primaryColor: Colors.blue.shade900,
-                            onpressed: () {},
-                            title: AppLocalizations.of(context)!
-                                .translate('Withdraw_balance')!,
-                            borderRadius: 10,
-                            icon: SvgPicture.asset(
-                              'assets/icons/home_icons/withdraw_balance.svg',
-                              width: 25,
-                            ),
-                            loading: false,
-                          ),
-                          const SizedBox(width: 17),
-                          elevatedButtonWithoutWidth(
-                            height: 48,
-                            width: 163,
-                            primaryColor: Colors.blue.shade900,
-                            borderRadius: 10,
-                            onpressed: () {},
-                            title: AppLocalizations.of(context)!
-                                .translate('Add_balance')!,
-                            icon: SvgPicture.asset(
-                              'assets/icons/home_icons/withdraw_balance.svg',
-                              width: 25,
-                            ),
-                            loading: false,
-                          ),
-                        ],
-                      ),
-                    )
+                    const WalletCardHomeWidget()
                   ],
                 ),
                 //SizedBox(height: 1.h),
@@ -200,7 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 BlocBuilder<DealsCubit, DealsState>(
                   builder: (context, state) {
                     final cubit = DealsCubit.get(context);
-                    if (cubit.myDeals.isEmpty) {
+                    if (cubit.myDeals==null) {
+                      return LoaderWidget.circleProgressIndicator();
+                    }
+                    else if (cubit.myDeals!.isEmpty) {
                       return const SizedBox.shrink();
                     }
                     return Column(
@@ -226,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    '12${AppLocalizations.of(context)!.translate('deal')!}',
+                                    '12//${AppLocalizations.of(context)!.translate('deal')!}',
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.grey.shade600,
@@ -253,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         SpecialBookedListCard(
-                          specialBookedCard: cubit.myDeals.map((deal) {
+                          specialBookedCard: cubit.myDeals!.map((deal) {
                             return SpecialBookedCard(
                               // image: deal!.picture!.filePath!,
                               // productCategory: deal.categoryTitle!,
@@ -276,7 +210,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 BlocBuilder<DealsCubit, DealsState>(
                   builder: (context, state) {
                     final cubit = DealsCubit.get(context);
-                    if (cubit.availableDeals.isEmpty) {
+                    if (cubit.availableDeals == null)
+                      return LoaderWidget.circleProgressIndicator();
+                    else if (cubit.availableDeals!.isEmpty) {
                       return const SizedBox.shrink();
                     }
                     return Column(
@@ -330,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(height: 16),
                         SpecialBookedListCard(
                           carouselHeight: 433,
-                          specialBookedCard: cubit.availableDeals.map((deal) {
+                          specialBookedCard: cubit.availableDeals!.map((deal) {
                             return SpecialBookedCard(
                               deal: deal,
                               height: 420,

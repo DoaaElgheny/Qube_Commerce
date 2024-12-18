@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:qubeCommerce/core/api/end_points.dart';
+import 'package:qubeCommerce/core/utils/app_utils.dart';
+import 'package:qubeCommerce/features/wallet/presentation/cubit/wallet_cubit.dart';
+import 'package:qubeCommerce/injection_container.dart';
 
-class JoinDealScreen extends StatefulWidget {
+import '../../deals_export.dart';
+
+class JoinDealScreen extends StatelessWidget {
   const JoinDealScreen({super.key});
 
-  @override
-  State<JoinDealScreen> createState() => _JoinDealScreenState();
-}
-
-class _JoinDealScreenState extends State<JoinDealScreen> {
-  bool _isChecked = true;
+  // bool _isChecked = true;
   @override
   Widget build(BuildContext context) {
+    final dealDetails = AppUtils.getArguments(context) as DealsDetailsModel;
+    final walletCubit = serviceLocator<WalletCubit>();
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -50,72 +53,80 @@ class _JoinDealScreenState extends State<JoinDealScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const SizedBox(),
-                    const Column(
-                      // mainAxisAlignment: MainAxisAlignment.end,
-                      // crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text("كرسي كمبيوتر شبكي",
-                                style: TextStyle(
+                    Expanded(
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.end,
+                        // crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${dealDetails.name}',
+                                style: const TextStyle(
                                   fontSize: 18,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                )),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text("#165785",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                )),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(":الحد الأدنى للإنضمام#",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                )),
-                            Row(
-                              children: [
-                                Text(
-                                  "ج.م",
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                maxLines: 1,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text("${dealDetails.campaignCode}",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400,
+                                  )),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(":الحد الأدنى للإنضمام#",
                                   style: TextStyle(
                                     fontSize: 18,
-                                    color: Color(0xFF38A169),
+                                    color: Colors.black,
                                     fontWeight: FontWeight.w400,
+                                  )),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "ج.م",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color(0xFF38A169),
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "1000",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Color(0xFF38A169),
-                                    fontWeight: FontWeight.bold,
+                                  Text(
+                                    "${dealDetails.minimumOrderValue}",
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Color(0xFF38A169),
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     Container(
-                        height: 136,
-                        width: 135,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Image.asset("assets/images/png/Desk.png")),
+                      height: 136,
+                      width: 135,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(image: NetworkImage('${EndPoints.baseUrl}/${dealDetails.pictures!.first.filePath}'))
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -176,11 +187,11 @@ class _JoinDealScreenState extends State<JoinDealScreen> {
                     ),
                     Row(
                       children: [
-                        const Column(
+                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(
+                            const Text(
                               'رصيدي',
                               style: TextStyle(
                                 color: Colors.white,
@@ -189,8 +200,8 @@ class _JoinDealScreenState extends State<JoinDealScreen> {
                               ),
                             ),
                             Text(
-                              'ج.م‎ 20.000',
-                              style: TextStyle(
+                              'ج.م‎ ${walletCubit.myWallets!.first.availableBalance}',
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -255,9 +266,9 @@ class _JoinDealScreenState extends State<JoinDealScreen> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const Text(
-                        "يجب أن يكون المبلغ المدخل أكبر من أو يساوي 1000 ج.م للإنضمام",
-                        style: TextStyle(
+                       Text(
+                        "يجب أن يكون المبلغ المدخل أكبر من أو يساوي ${dealDetails.minimumOrderValue} ج.م للإنضمام",
+                        style: const TextStyle(
                           color: Color(0xFFE53E3E),
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
@@ -299,56 +310,57 @@ class _JoinDealScreenState extends State<JoinDealScreen> {
                                     color: const Color(0xFF000080),
                                     width: 1.5)),
                             child: Checkbox(
-                              value: _isChecked,
+                              // value: _isChecked,
+                              value: false,
                               onChanged: (value) {
-                                setState(() {
-                                  _isChecked = value!;
-                                });
+                                // setState(() {
+                                //   _isChecked = value!;
+                                // });
                               },
                             ),
                           )
                         ],
                       ),
-                      if (_isChecked)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const SizedBox(height: 15),
-                            const Text(
-                              "كود الخصم",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              height: 48,
-                              child: TextField(
-                                textAlign: TextAlign.end,
-                                textAlignVertical: TextAlignVertical.center,
-                                maxLines: 1,
-                                decoration: InputDecoration(
-                                  suffixIcon: const Image(
-                                    image: AssetImage(
-                                        "assets/images/png/discount.png"),
-                                  ),
-                                  border: const OutlineInputBorder(),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color(0xFF000080)),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color(0xFF000080)),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      // if (_isChecked)
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.end,
+                      //   children: [
+                      //     const SizedBox(height: 15),
+                      //     const Text(
+                      //       "كود الخصم",
+                      //       style: TextStyle(
+                      //           fontSize: 14,
+                      //           color: Colors.black,
+                      //           fontWeight: FontWeight.w700),
+                      //     ),
+                      //     const SizedBox(height: 8),
+                      //     SizedBox(
+                      //       height: 48,
+                      //       child: TextField(
+                      //         textAlign: TextAlign.end,
+                      //         textAlignVertical: TextAlignVertical.center,
+                      //         maxLines: 1,
+                      //         decoration: InputDecoration(
+                      //           suffixIcon: const Image(
+                      //             image: AssetImage(
+                      //                 "assets/images/png/discount.png"),
+                      //           ),
+                      //           border: const OutlineInputBorder(),
+                      //           enabledBorder: OutlineInputBorder(
+                      //             borderSide: const BorderSide(
+                      //                 color: Color(0xFF000080)),
+                      //             borderRadius: BorderRadius.circular(8),
+                      //           ),
+                      //           focusedBorder: OutlineInputBorder(
+                      //             borderSide: const BorderSide(
+                      //                 color: Color(0xFF000080)),
+                      //             borderRadius: BorderRadius.circular(8),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
@@ -504,7 +516,7 @@ class _JoinDealScreenState extends State<JoinDealScreen> {
                         width: 3,
                       ),
                       Text(
-                        "200",
+                        "0",
                         style: TextStyle(
                           color: Color(0xFF718096),
                           fontSize: 14,

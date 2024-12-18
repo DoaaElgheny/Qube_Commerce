@@ -12,6 +12,7 @@ class DealsDetailsModel {
   final String? endDate;
   final dynamic profitPercentage;
   final int? expectedProfit;
+  final dynamic minimumOrderValue;
   final int? expectedRequestsCount;
   final int? status;
   final String? campaignCode;
@@ -20,6 +21,7 @@ class DealsDetailsModel {
   final String? categoryTitle;
   final List<Picture>? pictures;
   final List<CampaignHistoriesModel>? campaignHistories;
+  final int? joiners;
   DealsDetailsModel({
     this.id,
     this.name,
@@ -27,6 +29,7 @@ class DealsDetailsModel {
     this.endDate,
     this.profitPercentage,
     this.expectedProfit,
+    this.minimumOrderValue,
     this.expectedRequestsCount,
     this.status,
     this.campaignCode,
@@ -35,6 +38,7 @@ class DealsDetailsModel {
     this.categoryTitle,
     this.pictures,
     this.campaignHistories,
+    this.joiners,
   });
 
   DealsDetailsModel copyWith({
@@ -44,6 +48,7 @@ class DealsDetailsModel {
     String? endDate,
     dynamic profitPercentage,
     int? expectedProfit,
+    dynamic minimumOrderValue,
     int? expectedRequestsCount,
     int? status,
     String? campaignCode,
@@ -52,6 +57,7 @@ class DealsDetailsModel {
     String? categoryTitle,
     List<Picture>? pictures,
     List<CampaignHistoriesModel>? campaignHistories,
+    int? joiners,
   }) {
     return DealsDetailsModel(
       id: id ?? this.id,
@@ -60,6 +66,7 @@ class DealsDetailsModel {
       endDate: endDate ?? this.endDate,
       profitPercentage: profitPercentage ?? this.profitPercentage,
       expectedProfit: expectedProfit ?? this.expectedProfit,
+      minimumOrderValue: minimumOrderValue ?? this.minimumOrderValue,
       expectedRequestsCount:
           expectedRequestsCount ?? this.expectedRequestsCount,
       status: status ?? this.status,
@@ -69,6 +76,7 @@ class DealsDetailsModel {
       categoryTitle: categoryTitle ?? this.categoryTitle,
       pictures: pictures ?? this.pictures,
       campaignHistories: campaignHistories ?? this.campaignHistories,
+      joiners: joiners ?? this.joiners,
     );
   }
 
@@ -80,6 +88,7 @@ class DealsDetailsModel {
       'endDate': endDate,
       'profitPercentage': profitPercentage,
       'expectedProfit': expectedProfit,
+      'minimumOrderValue': minimumOrderValue,
       'expectedRequestsCount': expectedRequestsCount,
       'status': status,
       'campaignCode': campaignCode,
@@ -88,6 +97,7 @@ class DealsDetailsModel {
       'categoryTitle': categoryTitle,
       'pictures': pictures?.map((x) => x.toMap()).toList(),
       'campaignHistories': campaignHistories?.map((x) => x.toMap()).toList(),
+      'joiners': joiners,
     };
   }
 
@@ -97,9 +107,14 @@ class DealsDetailsModel {
       name: map['name'] != null ? map['name'] as String : null,
       startDate: map['startDate'] != null ? map['startDate'] as String : null,
       endDate: map['endDate'] != null ? map['endDate'] as String : null,
-      profitPercentage: map['profitPercentage'] as dynamic,
+      profitPercentage: map['profitPercentage'] != null
+          ? map['profitPercentage'] as dynamic
+          : null,
       expectedProfit:
           map['expectedProfit'] != null ? map['expectedProfit'] as int : null,
+      minimumOrderValue: map['minimumOrderValue'] != null
+          ? map['minimumOrderValue'] as dynamic
+          : null,
       expectedRequestsCount: map['expectedRequestsCount'] != null
           ? map['expectedRequestsCount'] as int
           : null,
@@ -126,6 +141,7 @@ class DealsDetailsModel {
               ),
             )
           : null,
+      joiners: map['joiners'] != null ? map['joiners'] as int : null,
     );
   }
 
@@ -136,7 +152,7 @@ class DealsDetailsModel {
 
   @override
   String toString() {
-    return 'DealsDetailsModel(id: $id, name: $name, startDate: $startDate, endDate: $endDate, profitPercentage: $profitPercentage, expectedProfit: $expectedProfit, expectedRequestsCount: $expectedRequestsCount, status: $status, campaignCode: $campaignCode, statusTitle: $statusTitle, categoryId: $categoryId, categoryTitle: $categoryTitle, pictures: $pictures, campaignHistories: $campaignHistories)';
+    return 'DealsDetailsModel(id: $id, name: $name, startDate: $startDate, endDate: $endDate, profitPercentage: $profitPercentage, expectedProfit: $expectedProfit, minimumOrderValue: $minimumOrderValue, expectedRequestsCount: $expectedRequestsCount, status: $status, campaignCode: $campaignCode, statusTitle: $statusTitle, categoryId: $categoryId, categoryTitle: $categoryTitle, pictures: $pictures, campaignHistories: $campaignHistories, joiners: $joiners)';
   }
 
   @override
@@ -149,6 +165,7 @@ class DealsDetailsModel {
         other.endDate == endDate &&
         other.profitPercentage == profitPercentage &&
         other.expectedProfit == expectedProfit &&
+        other.minimumOrderValue == minimumOrderValue &&
         other.expectedRequestsCount == expectedRequestsCount &&
         other.status == status &&
         other.campaignCode == campaignCode &&
@@ -156,7 +173,8 @@ class DealsDetailsModel {
         other.categoryId == categoryId &&
         other.categoryTitle == categoryTitle &&
         listEquals(other.pictures, pictures) &&
-        listEquals(other.campaignHistories, campaignHistories);
+        listEquals(other.campaignHistories, campaignHistories) &&
+        other.joiners == joiners;
   }
 
   @override
@@ -167,6 +185,7 @@ class DealsDetailsModel {
         endDate.hashCode ^
         profitPercentage.hashCode ^
         expectedProfit.hashCode ^
+        minimumOrderValue.hashCode ^
         expectedRequestsCount.hashCode ^
         status.hashCode ^
         campaignCode.hashCode ^
@@ -174,6 +193,7 @@ class DealsDetailsModel {
         categoryId.hashCode ^
         categoryTitle.hashCode ^
         pictures.hashCode ^
-        campaignHistories.hashCode;
+        campaignHistories.hashCode ^
+        joiners.hashCode;
   }
 }

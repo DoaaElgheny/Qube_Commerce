@@ -1,17 +1,14 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:qubeCommerce/features/wallet/presentation/cubit/wallet_cubit.dart';
+import 'package:qubeCommerce/injection_container.dart';
 
-class MyWalletScreen extends StatefulWidget {
+class MyWalletScreen extends StatelessWidget {
   const MyWalletScreen({super.key});
 
   @override
-  State<MyWalletScreen> createState() => _MyWalletScreenState();
-}
-
-class _MyWalletScreenState extends State<MyWalletScreen> {
-  @override
   Widget build(BuildContext context) {
+    final walletCubit =serviceLocator<WalletCubit>();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -20,7 +17,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
             Stack(
               children: [
                 Positioned(
-                  child: Container(
+                  child: SizedBox(
                     height: 296,
                     width: MediaQuery.of(context).size.width,
                     child: Image.asset("assets/images/png/authBack.png",
@@ -28,7 +25,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                   ),
                 ),
                 Positioned(
-                  child: Container(
+                  child: SizedBox(
                     height: 296,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
@@ -130,7 +127,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       ":رصيد الأرباح",
                                       style: TextStyle(
                                         fontSize: 16,
@@ -138,7 +135,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 5,
                                     ),
                                     Container(
@@ -146,7 +143,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(
+                                          const Text(
                                             "ج.م",
                                             style: TextStyle(
                                               fontSize: 18,
@@ -154,12 +151,12 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           Text(
-                                            "5.000",
-                                            style: TextStyle(
+                                            "${walletCubit.myWallets!.first.profitBalance}",
+                                            style: const TextStyle(
                                               fontSize: 20,
                                               color: Color(0xFF06A6F1),
                                               fontWeight: FontWeight.bold,
@@ -181,7 +178,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       ':رصيدي',
                                       style: TextStyle(
                                         fontSize: 16,
@@ -189,7 +186,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 5,
                                     ),
                                     Container(
@@ -197,7 +194,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          Text(
+                                          const Text(
                                             "ج.م",
                                             style: TextStyle(
                                               fontSize: 18,
@@ -205,12 +202,12 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           Text(
-                                            "20.000",
-                                            style: TextStyle(
+                                            "${walletCubit.myWallets!.first.availableBalance}",
+                                            style: const TextStyle(
                                               fontSize: 20,
                                               color: Color(0xFF06A6F1),
                                               fontWeight: FontWeight.bold,
@@ -232,7 +229,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                 width: 163,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
-                                  gradient: LinearGradient(colors: [
+                                  gradient: const LinearGradient(colors: [
                                     Color(0xFF0D05D2),
                                     Color(0xFF000080)
                                   ]),
@@ -264,7 +261,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                 width: 163,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
-                                  gradient: LinearGradient(colors: [
+                                  gradient: const LinearGradient(colors: [
                                     Color(0xFF0D05D2),
                                     Color(0xFF000080)
                                   ]),
@@ -390,7 +387,7 @@ Widget ProfitCardGreen(
         children: [
           Text(
             GR3,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.green,
               fontSize: 16,
               fontWeight: FontWeight.w400,
@@ -398,7 +395,7 @@ Widget ProfitCardGreen(
           ),
           Text(
             GR2,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -409,7 +406,7 @@ Widget ProfitCardGreen(
             children: [
               Text(
                 GR1C1,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -417,7 +414,7 @@ Widget ProfitCardGreen(
               ),
               Text(
                 GR1C2,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -448,7 +445,7 @@ Widget ProfitCardOrange(
         children: [
           Text(
             OR3,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.orange,
               fontSize: 16,
               fontWeight: FontWeight.w400,
@@ -456,7 +453,7 @@ Widget ProfitCardOrange(
           ),
           Text(
             OR2,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -467,7 +464,7 @@ Widget ProfitCardOrange(
             children: [
               Text(
                 OR1C1,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -475,7 +472,7 @@ Widget ProfitCardOrange(
               ),
               Text(
                 OR1C2,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,

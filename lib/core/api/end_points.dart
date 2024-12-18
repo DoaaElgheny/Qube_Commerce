@@ -25,4 +25,8 @@ final class EndPoints {
   static const String joinDeal = '$_deals/join';
 
   //wallet
+  static const String _wallets = '${baseUrl}api/Wallets';
+  static const String getMyWallets = '$_wallets/GetMyWallets';
+  static const String deposit = '$_wallets/Deposit';
+  static const String withdraw = '$_wallets/Withdraw';
 }
