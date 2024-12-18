@@ -15,9 +15,9 @@ class DealsCubit extends Cubit<DealsState> {
   DealsCubit() : super(DealsInitial());
   static DealsCubit get(BuildContext context) => BlocProvider.of(context);
   final _dealsUsecase = serviceLocator<DealsUsecase>();
-  List<DealModel?> availableDeals = [];
+  List<DealModel?>? availableDeals;
   Data? availableDealsData;
-  List<DealModel?> myDeals = [];
+  List<DealModel?>? myDeals ;
   DealsDetailsModel? dealsDetailsModel;
 
   Future<void> getAvailableDeals() async {

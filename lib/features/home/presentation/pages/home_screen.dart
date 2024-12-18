@@ -5,22 +5,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:qubeCommerce/config/locale/app_localizations.dart';
 import 'package:qubeCommerce/config/routes/app_routes.dart';
 import 'package:qubeCommerce/core/authentication/provider.dart';
-import 'package:qubeCommerce/core/prefs/my_shared_prefs.dart';
-import 'package:qubeCommerce/core/shared_widgets/elevated_btn.dart';
 import 'package:qubeCommerce/core/utils/app_colors.dart';
-import 'package:qubeCommerce/core/utils/app_utils.dart';
-import 'package:qubeCommerce/features/auth/presentation/login/view/login.dart';
-import 'package:qubeCommerce/features/deals/data/models/deal_parameter.dart';
-import 'package:qubeCommerce/features/deals/presentation/cubit/deals_cubit.dart';
-import 'package:qubeCommerce/features/home/presentation/cubit/home_cubit.dart';
-import 'package:qubeCommerce/features/home/presentation/cubit/home_state.dart';
-import 'package:qubeCommerce/features/home/presentation/widgets/container_box.dart';
 import 'package:qubeCommerce/injection_container.dart';
-import 'package:sizer/sizer.dart';
-
+import 'package:qubeCommerce/shared/widget/loader_widget.dart';
 import '../../../../core/shared_widgets/app_text.dart';
+import '../../../deals/deals_export.dart';
 import '../../../wallet/wallet_export.dart';
-import '../../domain/entities/popurlar_destinations_list.dart';
 import '../widgets/special_booked_list_widget.dart';
 import '../widgets/special_booked_widget.dart';
 
@@ -43,9 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
             create: (context) => serviceLocator<DealsCubit>()
               ..getAvailableDeals()
               ..getMyDeals(),
-          ),
-          BlocProvider(
-            create: (context) => serviceLocator<WalletCubit>()..getMyWallets(),
           ),
         ],
         child: SafeArea(
@@ -144,7 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 BlocBuilder<DealsCubit, DealsState>(
                   builder: (context, state) {
                     final cubit = DealsCubit.get(context);
-                    if (cubit.myDeals.isEmpty) {
+                    if (cubit.myDeals==null) {
+                      return LoaderWidget.circleProgressIndicator();
+                    }
+                    else if (cubit.myDeals!.isEmpty) {
                       return const SizedBox.shrink();
                     }
                     return Column(
@@ -197,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         SpecialBookedListCard(
-                          specialBookedCard: cubit.myDeals.map((deal) {
+                          specialBookedCard: cubit.myDeals!.map((deal) {
                             return SpecialBookedCard(
                               // image: deal!.picture!.filePath!,
                               // productCategory: deal.categoryTitle!,
@@ -220,7 +210,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 BlocBuilder<DealsCubit, DealsState>(
                   builder: (context, state) {
                     final cubit = DealsCubit.get(context);
-                    if (cubit.availableDeals.isEmpty) {
+                    if (cubit.availableDeals == null)
+                      return LoaderWidget.circleProgressIndicator();
+                    else if (cubit.availableDeals!.isEmpty) {
                       return const SizedBox.shrink();
                     }
                     return Column(
@@ -274,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(height: 16),
                         SpecialBookedListCard(
                           carouselHeight: 433,
-                          specialBookedCard: cubit.availableDeals.map((deal) {
+                          specialBookedCard: cubit.availableDeals!.map((deal) {
                             return SpecialBookedCard(
                               deal: deal,
                               height: 420,

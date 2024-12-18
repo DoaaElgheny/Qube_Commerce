@@ -9,6 +9,7 @@ import 'package:qubeCommerce/features/deals/presentation/cubit/deals_cubit.dart'
 import 'package:qubeCommerce/features/home/presentation/widgets/filter_botom_sheet.dart';
 import 'package:qubeCommerce/features/home/presentation/widgets/special_booked_widget.dart';
 import 'package:qubeCommerce/injection_container.dart';
+import 'package:qubeCommerce/shared/widget/loader_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class AllAvaliableScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _AllAvaliableScreenState extends State<AllAvaliableScreen> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 16.h,
+                  height: 20.h,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
@@ -97,55 +98,57 @@ class _AllAvaliableScreenState extends State<AllAvaliableScreen> {
                           ],
                         ),
                       ),
-                 Padding(
-                  padding: EdgeInsets.all(8),
-                  child: TextFiledCustom(
-                   isReadOnly: false,
-                   onTab: () {
-                     // Navigator.pushNamed(context, Routes.searchScreen);
-                   },
-                   onChanged: (val) {},
-                   isBorder: true,
-                   isFilled: true,
-                   borderColor:AppColors.containerNotificationHomeColor,
-                   vertical: 5,
-                   prifixIcon: Padding(
-                       padding:
-                       const EdgeInsetsDirectional.only(start: 8.0, end: 8),
-                       child: SvgPicture.asset(ImageAssets.search_explor)),
-                   suffixIcon: InkWell(
-                     onTap: (){
-                       showModalBottomSheet(
-                         isScrollControlled: true,
-                         enableDrag: true,
-                         shape: const RoundedRectangleBorder(
-                           borderRadius: BorderRadius.only(
-                             topLeft: Radius.circular(10),
-                             topRight: Radius.circular(10),
-                           ),
-                         ),
-                         context: context,
-                         builder: (BuildContext context) {
-                           return const FilterBottomSheet();
-                         },
-                       );
-                     },
-                     child: Padding(
-                         padding:
-                         const EdgeInsetsDirectional.only(end: 8.0, start: 8),
-                         child: SvgPicture.asset(ImageAssets.filter_icon)),
-                   ),
-                 
-                   validator: (v) {},
-                   textInputType: TextInputType.text,
-                   hintColor: AppColors.hintColor,
-                   fillColor: Colors.white,
-                   errorColorBorder: Colors.red,
-                   hintText: 'Search',
-                   controller: searchControllerHome,
-                 ),),
-              
-                   
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: TextFiledCustom(
+                          isReadOnly: false,
+                          onTab: () {
+                            // Navigator.pushNamed(context, Routes.searchScreen);
+                          },
+                          onChanged: (val) {},
+                          isBorder: true,
+                          isFilled: true,
+                          borderColor: AppColors.containerNotificationHomeColor,
+                          vertical: 5,
+                          prifixIcon: Padding(
+                              padding: const EdgeInsetsDirectional.only(
+                                  start: 8.0, end: 8),
+                              child:
+                                  SvgPicture.asset(ImageAssets.search_explor)),
+                          suffixIcon: InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                enableDrag: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const FilterBottomSheet();
+                                },
+                              );
+                            },
+                            child: Padding(
+                                padding: const EdgeInsetsDirectional.only(
+                                    end: 8.0, start: 8),
+                                child:
+                                    SvgPicture.asset(ImageAssets.filter_icon)),
+                          ),
+                          validator: (v) {
+                            return null;
+                          },
+                          textInputType: TextInputType.text,
+                          hintColor: AppColors.hintColor,
+                          fillColor: Colors.white,
+                          errorColorBorder: Colors.red,
+                          hintText: 'Search',
+                          controller: searchControllerHome,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -153,7 +156,9 @@ class _AllAvaliableScreenState extends State<AllAvaliableScreen> {
                 BlocBuilder<DealsCubit, DealsState>(
                   builder: (context, state) {
                     final cubit = DealsCubit.get(context);
-                    if (cubit.availableDeals.isEmpty) {
+                    if (cubit.availableDeals == null) {
+                      return LoaderWidget.circleProgressIndicator();
+                    } else if (cubit.availableDeals!.isEmpty) {
                       return const SizedBox.shrink();
                     }
                     return Column(
@@ -192,7 +197,7 @@ class _AllAvaliableScreenState extends State<AllAvaliableScreen> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        for (var deal in cubit.availableDeals) ...{
+                        for (var deal in cubit.availableDeals!) ...{
                           SpecialBookedCard(
                             deal: deal,
                             height: 420,
@@ -217,7 +222,9 @@ class _AllAvaliableScreenState extends State<AllAvaliableScreen> {
                                 'assets/icons/overview_section/Calender 1.svg',
                             // date: AppUtils.formatDateToString(deal.startDate!)??'',
                           ),
-                      const SizedBox(height: 15,)
+                          const SizedBox(
+                            height: 15,
+                          )
                         },
                       ],
                     );

@@ -15,6 +15,7 @@ import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/enums.dart';
 import '../../../../injection_container.dart';
 import '../../../home/presentation/pages/home_screen.dart';
+import '../../../wallet/wallet_export.dart';
 import '../cubit/buttomnavigationbar_cubit.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
@@ -29,7 +30,6 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen>
     with TickerProviderStateMixin, FbNotifications {
   @override
   void initState() {
-
     initializeForegroundNotificationForAndroid(context: context);
     manageNotificationAction(context: context);
     if (Platform.isIOS) requestNotificationPermissions();
@@ -39,23 +39,27 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen>
   @override
   Widget build(BuildContext context) {
     final tabCubit = context.read<ButtomnavigationbarCubit>();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: false,
-      body: BlocBuilder<ButtomnavigationbarCubit, SelectedTabNavigationBar>(
-        builder: (context, currentIndex) {
-          if (currentIndex == SelectedTabNavigationBar.home) {
-            return const HomeScreen();
-          } else if (currentIndex == SelectedTabNavigationBar.deals) {
-            return const HomeScreen();
-          } else if (currentIndex == SelectedTabNavigationBar.wallet) {
-            return const MyWalletScreen();
-          } else if (currentIndex == SelectedTabNavigationBar.profile) {
-            return const MyWalletScreen();
-          } else {
-            return const SettingScreen();
-          }
-        },
+      body: BlocProvider(
+        create: (context) => serviceLocator<WalletCubit>()..getMyWallets(),
+        child: BlocBuilder<ButtomnavigationbarCubit, SelectedTabNavigationBar>(
+          builder: (context, currentIndex) {
+            if (currentIndex == SelectedTabNavigationBar.home) {
+              return const HomeScreen();
+            } else if (currentIndex == SelectedTabNavigationBar.deals) {
+              return const HomeScreen();
+            } else if (currentIndex == SelectedTabNavigationBar.wallet) {
+              return const MyWalletScreen();
+            } else if (currentIndex == SelectedTabNavigationBar.profile) {
+              return const MyWalletScreen();
+            } else {
+              return const SettingScreen();
+            }
+          },
+        ),
       ),
       bottomNavigationBar:
           BlocBuilder<ButtomnavigationbarCubit, SelectedTabNavigationBar>(

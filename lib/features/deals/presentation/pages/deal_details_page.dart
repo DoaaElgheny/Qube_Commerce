@@ -2,8 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qubeCommerce/config/routes/app_routes.dart';
 import 'package:qubeCommerce/core/utils/app_utils.dart';
-import 'package:qubeCommerce/features/home/presentation/pages/join_deal.dart';
+import 'package:qubeCommerce/features/deals/presentation/pages/join_deal.dart';
 
 import '../../../../core/api/end_points.dart';
 import '../../deals_export.dart';
@@ -374,12 +375,12 @@ class DealDetailsPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
+                               Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       ":الحد الأدنى للإنضمام",
                                       style: TextStyle(
                                         fontSize: 18,
@@ -389,7 +390,7 @@ class DealDetailsPage extends StatelessWidget {
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           "ج.م",
                                           style: TextStyle(
                                             fontSize: 18,
@@ -398,8 +399,8 @@ class DealDetailsPage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "1000",
-                                          style: TextStyle(
+                                          "${deal.minimumOrderValue}",
+                                          style: const TextStyle(
                                             fontSize: 20,
                                             color: Color(0xFF38A169),
                                             fontWeight: FontWeight.bold,
@@ -414,12 +415,9 @@ class DealDetailsPage extends StatelessWidget {
                                 width: 15,
                               ),
                               InkWell(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const JoinDealScreen()),
-                                ),
+                                onTap: () => Navigator.pushNamed(
+                                    context, Routes.joinDealScreenRoute,
+                                    arguments: deal),
                                 child: Container(
                                   height: 56,
                                   width: 195,
@@ -435,12 +433,9 @@ class DealDetailsPage extends StatelessWidget {
                                   ),
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const JoinDealScreen()),
-                                      );
+                                      Navigator.pushNamed(
+                                          context, Routes.joinDealScreenRoute,
+                                          arguments: deal);
                                     },
                                     child: const Center(
                                       child: Text(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,6 +53,30 @@ class SpecialBookedCard extends StatefulWidget {
 }
 
 class _SpecialBookedCardState extends State<SpecialBookedCard> {
+  int hours = 0;
+  int minutes = 0;
+  int seconds = 0;
+  @override
+  void initState() {
+    super.initState();
+    _calculateTimeDifference();
+  }
+
+  // Calculate the time difference
+  void _calculateTimeDifference() {
+    final now = DateTime.now();
+    final startDate = DateTime.parse(widget.deal!.startDate!);
+    final isDateAfter = startDate.isAfter(now);
+    if (isDateAfter) {
+      final difference = now.difference(startDate).abs();
+      setState(() {
+        hours = difference.inHours;
+        minutes = difference.inMinutes.remainder(60);
+        seconds = difference.inSeconds.remainder(60);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -92,17 +118,16 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       ],
                                     ),
                                   ),
-                                  child: const Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        '4',
-                                        style: TextStyle(
+                                        '$hours',
+                                        style: const TextStyle(
                                           fontSize: 16,
                                         ),
                                       ),
-                                      Text(
+                                      const Text(
                                         'hour',
                                         style: TextStyle(
                                           fontSize: 12,
@@ -125,17 +150,16 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       ],
                                     ),
                                   ),
-                                  child: const Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        '31',
-                                        style: TextStyle(
+                                        '$minutes',
+                                        style: const TextStyle(
                                           fontSize: 16,
                                         ),
                                       ),
-                                      Text(
+                                      const Text(
                                         'minutes',
                                         style: TextStyle(
                                           fontSize: 12,
@@ -158,17 +182,16 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       ],
                                     ),
                                   ),
-                                  child: const Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        '44',
-                                        style: TextStyle(
+                                        '$seconds',
+                                        style: const TextStyle(
                                           fontSize: 16,
                                         ),
                                       ),
-                                      Text(
+                                      const Text(
                                         'seconds',
                                         style: TextStyle(
                                           fontSize: 12,
@@ -182,21 +205,20 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                   width: 55,
                                   height: 45,
                                   decoration: BoxDecoration(
-                                    color: AppColors
-                                        .carouselSliderContainerColor,
+                                    color:
+                                        AppColors.carouselSliderContainerColor,
                                   ),
                                   child: Center(
                                     child: Text(
                                       'Join in:',
                                       style: TextStyle(
-                                        color: AppColors
-                                            .redLinearGradientLighter,
+                                        color:
+                                            AppColors.redLinearGradientLighter,
                                         fontSize: 14,
                                       ),
                                     ),
                                   ),
                                 ),
-                             
                               ],
                             ),
                           ),
@@ -220,7 +242,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                   Text(
+                                  Text(
                                     widget.deal?.name ?? '',
                                     style: TextStyle(
                                       color: AppColors.greyTextDarkColor,
@@ -244,7 +266,6 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       ),
                                     ),
                                   ),
-                                 
                                 ],
                               ),
                               const SizedBox(height: 8),
@@ -252,9 +273,9 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                      Row(
+                                  Row(
                                     children: [
-                                         if (widget.svgPath2 != null)
+                                      if (widget.svgPath2 != null)
                                         SvgPicture.asset(
                                           widget.svgPath2!,
                                           width: 15,
@@ -263,8 +284,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                             BlendMode.srcIn,
                                           ),
                                         ),
-                                   
-                                        const SizedBox(width: 7),
+                                      const SizedBox(width: 7),
                                       Text(
                                         AppUtils.formatDateToString(
                                                 widget.deal?.startDate) ??
@@ -274,11 +294,8 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                           fontSize: 16,
                                         ),
                                       ),
-                                    
-                                   
                                     ],
                                   ),
-                               
                                   Row(
                                     children: [
                                       Text(
@@ -293,8 +310,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                           fontWeight: FontWeight.bold,
                                           color: widget.showNumberOfPeople
                                               ? AppColors.productTextBlueColor
-                                              : AppColors
-                                                  .productTextGreenColor,
+                                              : AppColors.productTextGreenColor,
                                         ),
                                       ),
                                       const SizedBox(width: 4),
@@ -306,7 +322,6 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       ),
                                     ],
                                   ),
-                              
                                 ],
                               ),
                             ],
@@ -329,10 +344,8 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                             padding:
                                 const EdgeInsets.only(left: 8.0, right: 8.0),
                             child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                              
                                 Column(
                                   children: [
                                     Text(
@@ -347,13 +360,12 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
-                                        color:
-                                            AppColors.productTextGreenColor,
+                                        color: AppColors.productTextGreenColor,
                                       ),
                                     ),
                                   ],
                                 ),
-                              Container(
+                                Container(
                                   height: 48,
                                   width: 126,
                                   decoration: BoxDecoration(
@@ -377,11 +389,9 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                     ),
                                   ),
                                 ),
-                                
                               ],
                             ),
                           ),
-                      
                         if (widget.showButton)
                           elevatedButtonWithoutWidth(
                             icon: const Text(''),
@@ -399,7 +409,6 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                 .translate('View_details')!,
                             loading: false,
                           ),
-                     
                       ],
                     ),
                   ],

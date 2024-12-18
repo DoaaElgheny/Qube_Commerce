@@ -14,6 +14,7 @@ import '../../features/auth/presentation/reset_password/view/reset_password_view
 import '../../features/auth/presentation/verify_otp/view/verify_otp_view.dart';
 import '../../features/bottomNavigationBar/presentation/pages/bottom_navigation_bar.dart';
 import '../../features/deals/presentation/pages/deal_details_page.dart';
+import '../../features/deals/presentation/pages/join_deal.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/splash/presentation/cubit/locale_cubit.dart';
 import '../../features/splash/presentation/pages/splash_screen.dart';
@@ -30,8 +31,8 @@ class Routes {
   static const String bottomNavigationBarScreen = '/bottomNavigationBarScreen';
   static const String exploreScreen = '/exploreScreen';
   static const String dealDetailsPageRoute = '/dealDetailsPage';
-static const String allAvaliabledDeal = '/allAvaliabledDeal';
-
+  static const String allAvaliabledDeal = '/allAvaliabledDeal';
+  static const String joinDealScreenRoute = '/joinDealScreen';
 }
 
 class AppRoutes {
@@ -151,19 +152,26 @@ class AppRoutes {
       //   }));
       case Routes.changeLanguageScreen:
         return MaterialPageRoute(builder: ((context) {
-          return ChangeLanguageScreen();
+          return const ChangeLanguageScreen();
         }));
       case Routes.dealDetailsPageRoute:
         return MaterialPageRoute(
           builder: ((context) {
-            return DealDetailsPage();
+            return const DealDetailsPage();
           }),
           settings: routeSettings,
         );
-        case Routes.allAvaliabledDeal:
+      case Routes.allAvaliabledDeal:
         return MaterialPageRoute(
           builder: ((context) {
-            return AllAvaliableScreen();
+            return const AllAvaliableScreen();
+          }),
+          settings: routeSettings,
+        );
+      case Routes.joinDealScreenRoute:
+        return MaterialPageRoute(
+          builder: ((context) {
+            return const JoinDealScreen();
           }),
           settings: routeSettings,
         );
