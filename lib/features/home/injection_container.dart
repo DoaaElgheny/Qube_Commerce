@@ -13,7 +13,7 @@ Future<void> initHome() async {
   // sl.registerFactory<HomeCubit>(
   //     () => HomeCubit(getAvaliableDealsListUseCase: sl(), getMyDealsListUseCase: sl(), 
   //     ));//
-  // sl.registerFactory<FiltersCubit>(() => FiltersCubit());
+  sl.registerFactory<FiltersCubit>(() => FiltersCubit());
 //
 //   // Use cases
   // sl.registerLazySingleton<GetAvaliableDealsListUseCase>(

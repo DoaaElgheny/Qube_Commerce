@@ -40,52 +40,10 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                             width: MediaQuery.of(context).size.width,
                             child: Row(
                               children: [
-                                Expanded(
+                                 Expanded(
                                   child: Container(
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 40,
-                                          width: 115,
-                                          decoration: BoxDecoration(
-                                            //shape: BoxShape.rectangle,
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            border: Border.all(
-                                              color: const Color(0XFF000080),
-                                            ),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              const Text(
-                                                "المعاملات",
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Color(0xFF000080)),
-                                              ),
-                                              Image.asset(
-                                                'assets/images/png/arrows-horizontal.png',
-                                                width: 25,
-                                                height: 25,
-                                                color: const Color(0XFF000080),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                           width: 45,
@@ -113,6 +71,49 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                     ),
                                   ),
                                 ),
+                             
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 115,
+                                        decoration: BoxDecoration(
+                                          //shape: BoxShape.rectangle,
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          border: Border.all(
+                                            color: const Color(0XFF000080),
+                                          ),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            const Text(
+                                              "المعاملات",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Color(0xFF000080)),
+                                            ),
+                                            Image.asset(
+                                              'assets/images/png/arrows-horizontal.png',
+                                              width: 25,
+                                              height: 25,
+                                              color: const Color(0XFF000080),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                               
+                               
                               ],
                             ),
                           ),
@@ -127,7 +128,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
                                       ":رصيد الأرباح",
@@ -143,7 +144,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                     Container(
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             "ج.م",
@@ -178,7 +179,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
                                       ':رصيدي',
@@ -194,7 +195,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                     Container(
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.start,
                                         children: [
                                           Text(
                                             "ج.م",
@@ -299,70 +300,72 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(22.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'حالة الأرباح',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        'الحالة',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Text(
-                        'الأرباح',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Text(
-                        'المنتج',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  ProfitCardGreen('تم التحويل •', '2000 ج.م',
-                      'كرسي كمبيوتر شبكي', '#512497'),
-                  ProfitCardOrange(
-                      'تحت المعالجة •', '4000 ج.م', 'شنطة ضهر سفر', '#512497'),
-                  ProfitCardGreen('تم التحويل •', '3000 ج.م',
-                      'أدوات مطبخ خشبية', '#512497'),
-                  ProfitCardOrange(
-                      'تحت المعالجة •', '1000 ج.م', 'إير فراير', '#512497'),
-                  // ProfitCardGreen(
-                  //     'تم التحويل •', '500 ج.م', 'عجلة رياضية', '#512497'),
-                ],
-              ),
-            )
+
+            // SizedBox(
+            //   height: 5,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(22.0),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.end,
+            //     children: [
+            //       Text(
+            //         'حالة الأرباح',
+            //         style: TextStyle(
+            //           color: Colors.black,
+            //           fontSize: 18,
+            //           fontWeight: FontWeight.w700,
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         height: 15,
+            //       ),
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //         children: [
+            //           Text(
+            //             'الحالة',
+            //             style: TextStyle(
+            //               color: Colors.grey,
+            //               fontSize: 16,
+            //               fontWeight: FontWeight.w400,
+            //             ),
+            //           ),
+            //           Text(
+            //             'الأرباح',
+            //             style: TextStyle(
+            //               color: Colors.grey,
+            //               fontSize: 16,
+            //               fontWeight: FontWeight.w400,
+            //             ),
+            //           ),
+            //           Text(
+            //             'المنتج',
+            //             style: TextStyle(
+            //               color: Colors.grey,
+            //               fontSize: 16,
+            //               fontWeight: FontWeight.w400,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //       SizedBox(
+            //         height: 8,
+            //       ),
+            //       ProfitCardGreen('تم التحويل •', '2000 ج.م',
+            //           'كرسي كمبيوتر شبكي', '#512497'),
+            //       ProfitCardOrange(
+            //           'تحت المعالجة •', '4000 ج.م', 'شنطة ضهر سفر', '#512497'),
+            //       ProfitCardGreen('تم التحويل •', '3000 ج.م',
+            //           'أدوات مطبخ خشبية', '#512497'),
+            //       ProfitCardOrange(
+            //           'تحت المعالجة •', '1000 ج.م', 'إير فراير', '#512497'),
+            //       // ProfitCardGreen(
+            //       //     'تم التحويل •', '500 ج.م', 'عجلة رياضية', '#512497'),
+            //     ],
+            //   ),
+            // )
+         
           ],
         ),
       ),
@@ -402,7 +405,7 @@ Widget ProfitCardGreen(
             ),
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 GR1C1,
@@ -460,7 +463,7 @@ Widget ProfitCardOrange(
             ),
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 OR1C1,
