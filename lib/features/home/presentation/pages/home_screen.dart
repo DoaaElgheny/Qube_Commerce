@@ -33,7 +33,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchControllerHome = TextEditingController();
 
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -335,7 +334,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             return SpecialBookedCard(
                               deal: deal,
                               height: 420,
-                              box:true,
+                              box: true,
                               showButton: false,
                               numberOfPeople: deal!.participantsCount,
                               showNumberOfPeople: true,

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:qubeCommerce/config/locale/app_localizations.dart';
+import 'package:qubeCommerce/core/shared_widgets/text_filed.dart';
 import 'package:qubeCommerce/core/utils/app_colors.dart';
+import 'package:qubeCommerce/core/utils/assets_manager.dart';
 import 'package:qubeCommerce/features/deals/presentation/cubit/deals_cubit.dart';
+import 'package:qubeCommerce/features/home/presentation/widgets/filter_botom_sheet.dart';
 import 'package:qubeCommerce/features/home/presentation/widgets/special_booked_widget.dart';
 import 'package:qubeCommerce/injection_container.dart';
 import 'package:sizer/sizer.dart';
@@ -28,7 +32,7 @@ class _AllAvaliableScreenState extends State<AllAvaliableScreen> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 15.h,
+                  height: 16.h,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
@@ -93,6 +97,55 @@ class _AllAvaliableScreenState extends State<AllAvaliableScreen> {
                           ],
                         ),
                       ),
+                 Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextFiledCustom(
+                   isReadOnly: false,
+                   onTab: () {
+                     // Navigator.pushNamed(context, Routes.searchScreen);
+                   },
+                   onChanged: (val) {},
+                   isBorder: true,
+                   isFilled: true,
+                   borderColor:AppColors.containerNotificationHomeColor,
+                   vertical: 5,
+                   prifixIcon: Padding(
+                       padding:
+                       const EdgeInsetsDirectional.only(start: 8.0, end: 8),
+                       child: SvgPicture.asset(ImageAssets.search_explor)),
+                   suffixIcon: InkWell(
+                     onTap: (){
+                       showModalBottomSheet(
+                         isScrollControlled: true,
+                         enableDrag: true,
+                         shape: const RoundedRectangleBorder(
+                           borderRadius: BorderRadius.only(
+                             topLeft: Radius.circular(10),
+                             topRight: Radius.circular(10),
+                           ),
+                         ),
+                         context: context,
+                         builder: (BuildContext context) {
+                           return const FilterBottomSheet();
+                         },
+                       );
+                     },
+                     child: Padding(
+                         padding:
+                         const EdgeInsetsDirectional.only(end: 8.0, start: 8),
+                         child: SvgPicture.asset(ImageAssets.filter_icon)),
+                   ),
+                 
+                   validator: (v) {},
+                   textInputType: TextInputType.text,
+                   hintColor: AppColors.hintColor,
+                   fillColor: Colors.white,
+                   errorColorBorder: Colors.red,
+                   hintText: 'Search',
+                   controller: searchControllerHome,
+                 ),),
+              
+                   
                     ],
                   ),
                 ),
