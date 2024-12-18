@@ -24,7 +24,8 @@ class WalletCardHomeWidget extends StatelessWidget {
         } else if (walletCubit.myWallets!.isEmpty) {
           return const SizedBox.shrink();
         }
-        return Column(
+        final myWallet=walletCubit.myWallets!.first;
+        return Stack(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 88.0),
@@ -33,7 +34,7 @@ class WalletCardHomeWidget extends StatelessWidget {
                 child: ContainerBox(
                   text: AppLocalizations.of(context)!
                       .translate('Expected_profits')!,
-                  number: '30.000',
+                  number: '${myWallet.profitBalance}',
                   onTap: () {},
                   boxColor: AppColors.productTextBlueColor,
                   textColor: Colors.white,
@@ -46,7 +47,7 @@ class WalletCardHomeWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 child: ContainerBox(
                   text: AppLocalizations.of(context)!.translate('my_balance')!,
-                  number: '20.000',
+                  number: '${myWallet.availableBalance}',
                   onTap: () {},
                   boxColor: Colors.white,
                   textColor: AppColors.productTextBlueColor,

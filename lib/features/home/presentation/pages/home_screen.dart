@@ -198,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    WalletCardHomeWidget()
+                    const WalletCardHomeWidget()
                   ],
                 ),
                 //SizedBox(height: 1.h),
