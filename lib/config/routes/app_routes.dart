@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qubeCommerce/features/deals/presentation/pages/all_avaliable_deal.dart';
+import 'package:qubeCommerce/features/deals/presentation/pages/all_my_deals.dart';
 import 'package:qubeCommerce/features/setting/presentation/pages/change_lang_screen.dart';
 import 'package:qubeCommerce/injection_container.dart' as di;
 
@@ -32,6 +33,7 @@ class Routes {
   static const String exploreScreen = '/exploreScreen';
   static const String dealDetailsPageRoute = '/dealDetailsPage';
   static const String allAvaliabledDeal = '/allAvaliabledDeal';
+   static const String allMyDealsDeal = '/allMyDealsDeal';
   static const String joinDealScreenRoute = '/joinDealScreen';
 }
 
@@ -168,6 +170,13 @@ class AppRoutes {
           }),
           settings: routeSettings,
         );
+        case Routes.allMyDealsDeal:
+        return MaterialPageRoute(
+          builder: ((context) {
+            return const AllMyDealsScreen();
+          }),
+          settings: routeSettings,
+        );
       case Routes.joinDealScreenRoute:
         return MaterialPageRoute(
           builder: ((context) {
@@ -175,14 +184,7 @@ class AppRoutes {
           }),
           settings: routeSettings,
         );
-      // case Routes.contactUsScreen:
-      //   return MaterialPageRoute(builder: ((context) {
-      //     return ContactUsScreen();
-      //   }));
-      //case Routes.jobDetailsScreen:
-      // return MaterialPageRoute(builder: ((context) {
-      //   return JobDetailsScreen();
-      // }));
+    
       default:
         return undefinedRoute();
     }

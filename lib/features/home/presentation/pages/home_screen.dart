@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               TextButton(
                                 onPressed: () {
                                   Navigator.pushNamed(
-                                      context, Routes.allAvaliabledDeal);
+                                      context, Routes.allMyDealsDeal);
                                 },
                                 child: Text(
                                   AppLocalizations.of(context)!
