@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    '12//${AppLocalizations.of(context)!.translate('deal')!}',
+                                    '${cubit.myDeals!.length}${AppLocalizations.of(context)!.translate('deal')!}',
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.grey.shade600,

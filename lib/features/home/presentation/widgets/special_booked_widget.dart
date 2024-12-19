@@ -8,6 +8,8 @@ import 'package:qubeCommerce/core/api/end_points.dart';
 import 'package:qubeCommerce/core/shared_widgets/elevated_btn.dart';
 import 'package:qubeCommerce/core/shared_widgets/elevated_button_full_width.dart';
 import 'package:qubeCommerce/core/utils/app_colors.dart';
+import 'package:qubeCommerce/features/deals/presentation/pages/all_avaliable_deal.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/app_utils.dart';
@@ -105,7 +107,28 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                             ),
                             child: Row(
                               children: [
+                          
                                 Container(
+                                  width: 150,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        AppColors.carouselSliderContainerColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .translate('join')!,
+                                      style: TextStyle(
+                                        color:
+                                            AppColors.redLinearGradientLighter,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                           
+                               Container(
                                   width: 55,
                                   height: 45,
                                   decoration: BoxDecoration(
@@ -122,13 +145,14 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        '$hours',
+                                        '$seconds',
                                         style: const TextStyle(
                                           fontSize: 16,
                                         ),
                                       ),
-                                      const Text(
-                                        'hour',
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .translate('seconds')!,
                                         style: TextStyle(
                                           fontSize: 12,
                                         ),
@@ -159,8 +183,9 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                           fontSize: 16,
                                         ),
                                       ),
-                                      const Text(
-                                        'minutes',
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .translate('miuntes')!,
                                         style: TextStyle(
                                           fontSize: 12,
                                         ),
@@ -169,6 +194,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                   ),
                                 ),
                                 const SizedBox(width: 2),
+                             
                                 Container(
                                   width: 55,
                                   height: 45,
@@ -186,13 +212,14 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        '$seconds',
+                                        '$hours',
                                         style: const TextStyle(
                                           fontSize: 16,
                                         ),
                                       ),
-                                      const Text(
-                                        'seconds',
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .translate('hours')!,
                                         style: TextStyle(
                                           fontSize: 12,
                                         ),
@@ -200,25 +227,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(width: 48),
-                                Container(
-                                  width: 55,
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        AppColors.carouselSliderContainerColor,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Join in:',
-                                      style: TextStyle(
-                                        color:
-                                            AppColors.redLinearGradientLighter,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                               
                               ],
                             ),
                           ),
@@ -297,11 +306,18 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                     ],
                                   ),
                                   Row(
-                                    children: [
+                                    children: [ SvgPicture.asset(
+                                        widget.svgPath1,
+                                        width: widget.showCarouselSliderTwo!
+                                            ? 19.5
+                                            : 14.6,
+                                      ),
+                                       const SizedBox(width: 4),
+                                     
                                       Text(
                                         widget.showNumberOfPeople
                                             ? '${widget.numberOfPeople ?? 0}'
-                                            : '${widget.deal?.participantsCount ?? 0} request',
+                                            : '${widget.deal?.participantsCount ?? 0} طلب',
                                         style: TextStyle(
                                           fontSize:
                                               widget.showCarouselSliderTwo!
@@ -313,13 +329,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                               : AppColors.productTextGreenColor,
                                         ),
                                       ),
-                                      const SizedBox(width: 4),
-                                      SvgPicture.asset(
-                                        widget.svgPath1,
-                                        width: widget.showCarouselSliderTwo!
-                                            ? 19.5
-                                            : 14.6,
-                                      ),
+                                     
                                     ],
                                   ),
                                 ],
@@ -349,7 +359,8 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                 Column(
                                   children: [
                                     Text(
-                                      'Minimum to join:',
+                                      AppLocalizations.of(context)!
+                                          .translate('minimjoin')!,
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: AppColors.greyTextDarkColor,
@@ -379,10 +390,11 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       ],
                                     ),
                                   ),
-                                  child: const Center(
+                                  child: Center(
                                     child: Text(
-                                      'Join Deal!',
-                                      style: TextStyle(
+                                      AppLocalizations.of(context)!
+                                          .translate('joindeal')!,
+                                      style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                       ),

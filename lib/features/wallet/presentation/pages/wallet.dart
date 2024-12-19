@@ -128,7 +128,7 @@ class MyWalletScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      ":رصيد الأرباح",
+                                      "رصيد الأرباح :",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
@@ -143,18 +143,9 @@ class MyWalletScreen extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          const Text(
-                                            "ج.م",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: Color(0xFF06A6F1),
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
+                                          
+                                       
+                                           Text(
                                             "${walletCubit.myWallets!.first.profitBalance}",
                                             style: const TextStyle(
                                               fontSize: 20,
@@ -162,6 +153,18 @@ class MyWalletScreen extends StatelessWidget {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
+                                           const SizedBox(
+                                            width: 5,
+                                          ),
+                                           const Text(
+                                            "ج.م",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Color(0xFF06A6F1),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                           
                                         ],
                                       ),
                                     ),
@@ -179,7 +182,7 @@ class MyWalletScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      ':رصيدي',
+                                      'رصيدي:',
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
@@ -192,8 +195,19 @@ class MyWalletScreen extends StatelessWidget {
                                     Container(
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                            MainAxisAlignment.center,
                                         children: [
+                                           Text(
+                                            "${walletCubit.myWallets!.first.availableBalance}",
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              color: Color(0xFF06A6F1),
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                           const SizedBox(
+                                            width: 5,
+                                          ),
                                           const Text(
                                             "ج.م",
                                             style: TextStyle(
@@ -202,17 +216,8 @@ class MyWalletScreen extends StatelessWidget {
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "${walletCubit.myWallets!.first.availableBalance}",
-                                            style: const TextStyle(
-                                              fontSize: 20,
-                                              color: Color(0xFF06A6F1),
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
+                                         
+                                         
                                         ],
                                       ),
                                     ),

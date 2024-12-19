@@ -28,22 +28,19 @@ class LocaleCubit extends Cubit<LocaleState> {
     final response = await getSavedLangUseCase.call(NoParams());
     response.fold((failure) => debugPrint(AppStrings.cacheFailure),
         (value) async {
-      log('value$value');
-      log('Platform.localeName${Platform.localeName}');
-      log('value$value');
-      log('Platform.localeName${Platform.localeName}');
-      if (Platform.localeName == 'en' ||
-          Platform.localeName.contains('en') ||
-          Platform.localeName == 'en_US' ||
-          Platform.localeName == 'en_EG') {
-        currentLangCode = AppStrings.englishCode;
-        emit(ChangeLocaleState(Locale(currentLangCode)));
-        SharedPrefController().setLanguage(AppStrings.englishCode);
-      } else {
+  
+      // if (Platform.localeName == 'en' ||
+      //     Platform.localeName.contains('en') ||
+      //     Platform.localeName == 'en_US' ||
+      //     Platform.localeName == 'en_EG') {
+      //   currentLangCode = AppStrings.englishCode;
+      //   emit(ChangeLocaleState(Locale(currentLangCode)));
+      //   SharedPrefController().setLanguage(AppStrings.englishCode);
+      // } else {
         currentLangCode = AppStrings.arabicCode;
         emit(ChangeLocaleState(Locale(currentLangCode)));
         SharedPrefController().setLanguage(AppStrings.arabicCode);
-      }
+     // }
     });
   }
 

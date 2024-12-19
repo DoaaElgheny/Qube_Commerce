@@ -101,6 +101,11 @@
   "Expected_profits":"Expected profits",
   "Available_deals":"Available deals",
   "View_details":"View details",
-  "my_profile":"Profile"
-
+  "my_profile":"Profile",
+  "minimjoin":"Minimum to join:",
+  "joindeal":"Join Deal!",
+  "hours":"hours",
+  "miuntes":"miuntes",
+  "seconds":"seconds",
+  "join":"Join in"
 }
