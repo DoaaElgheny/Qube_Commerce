@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qubeCommerce/config/routes/app_routes.dart';
 import 'package:qubeCommerce/core/utils/app_utils.dart';
-import 'package:qubeCommerce/features/deals/presentation/pages/join_deal.dart';
 
-import '../../../../core/api/end_points.dart';
 import '../../deals_export.dart';
 
 class DealDetailsPage extends StatelessWidget {
@@ -16,7 +14,7 @@ class DealDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // final deal = AppUtils.getArguments(context) as DealModel;
     final dealsCubit = AppUtils.getArguments(context) as DealsCubit;
-
+    
     return BlocProvider.value(
       value: dealsCubit,
       child: Scaffold(
@@ -27,6 +25,7 @@ class DealDetailsPage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             final deal = DealsCubit.get(context).dealsDetailsModel;
+            final timeCalculator = AppUtils.calculateTimeDifference(date: deal!.startDate!);
             return SafeArea(
               child: SingleChildScrollView(
                 child: Column(
@@ -150,7 +149,7 @@ class DealDetailsPage extends StatelessWidget {
                               height: 15,
                             ),
                             DealImagesCardWidget(
-                              pictures: deal?.pictures ?? [],
+                              pictures: deal.pictures ?? [],
                             ),
                             const SizedBox(
                               height: 15,
@@ -187,7 +186,7 @@ class DealDetailsPage extends StatelessWidget {
                                               ),
                                               const SizedBox(width: 5),
                                               Text(
-                                                '${deal!.joiners}', // Dynamic count
+                                                '${deal.joiners}', // Dynamic count
 
                                                 style: const TextStyle(
                                                   fontSize: 20,
@@ -310,7 +309,7 @@ class DealDetailsPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              _TimerContainer("4", "ساعة"),
+                              _TimerContainer("${timeCalculator!.hours}", "ساعة"),
                               const SizedBox(
                                 width: 15,
                               ),
@@ -342,7 +341,7 @@ class DealDetailsPage extends StatelessWidget {
                               const SizedBox(
                                 width: 15,
                               ),
-                              _TimerContainer("31", "دقيقة"),
+                              _TimerContainer("${timeCalculator.minutes}", "دقيقة"),
                               const SizedBox(
                                 width: 15,
                               ),
@@ -366,7 +365,7 @@ class DealDetailsPage extends StatelessWidget {
                               const SizedBox(
                                 width: 15,
                               ),
-                              _TimerContainer("44", "ثانية"),
+                              _TimerContainer("${timeCalculator.seconds}", "ثانية"),
                             ],
                           ),
                           const SizedBox(

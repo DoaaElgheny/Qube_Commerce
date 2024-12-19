@@ -19,3 +19,4 @@ export 'presentation/cubit/deals_cubit.dart';
 export 'presentation/pages/deal_details_page.dart';
 export 'presentation/widgets/campaign_histories_card_widget.dart';
 export 'presentation/widgets/deal_images_card_widget.dart';
+export 'presentation/widgets/deal_summary_card_widget.dart';

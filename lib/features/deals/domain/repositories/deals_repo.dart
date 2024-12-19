@@ -7,7 +7,7 @@ abstract class DealsRepo {
   Future<Either<Failure, BaseResponse>> getAvailableDeals(
       {required GetAvailableDealsModel getAvailableDealsModel});
   Future<Either<Failure, BaseResponse>> getMyDeals(
-      {required int pageNumber, required int pageSize});
+      {required int pageNumber, required int pageSize, int? status});
   Future<Either<Failure, BaseResponse>> getDetailsById({
     required int id,
   });

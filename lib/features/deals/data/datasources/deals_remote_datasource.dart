@@ -14,8 +14,11 @@ abstract class DealsRemoteDatasource {
   Future<BaseResponse> getAvailableDeals({
     required GetAvailableDealsModel getAvailableDealsModel,
   });
-  Future<BaseResponse> getMyDeals(
-      {required int pageNumber, required int pageSize});
+  Future<BaseResponse> getMyDeals({
+    required int pageNumber,
+    required int pageSize,
+     int? status,
+  });
   Future<BaseResponse> getDetailsById({
     required int id,
   });
@@ -42,13 +45,17 @@ class DealsRemoteDatasourceImpl implements DealsRemoteDatasource {
   }
 
   @override
-  Future<BaseResponse> getMyDeals(
-      {required int pageNumber, required int pageSize}) async {
+  Future<BaseResponse> getMyDeals({
+    required int pageNumber,
+    required int pageSize,
+     int? status,
+  }) async {
     final Response response = await _httpHelper.get(
       EndPoints.mydeals,
       requestData: RequestData(params: {
         "PageNumber": pageNumber,
         'PageSize': pageSize,
+        'Status': status,
       }),
     );
     return Future.value(BaseResponse.fromMap(response.data));

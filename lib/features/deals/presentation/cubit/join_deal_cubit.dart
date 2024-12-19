@@ -13,21 +13,41 @@ part 'join_deal_state.dart';
 
 class JoinDealCubit extends Cubit<JoinDealState> {
   JoinDealCubit() : super(JoinDealInitial());
-    static JoinDealCubit get(BuildContext context) => BlocProvider.of(context);
+  static JoinDealCubit get(BuildContext context) => BlocProvider.of(context);
   final _dealsUsecase = serviceLocator<DealsUsecase>();
-  Future<void> joinDeal() async {
+  String? dealValue;
+  double? serviceFees;
+  double? totalDealValue;
+  Future<void> joinDeal(
+      {required int campaignId, required String walletId}) async {
     emit(JoinDealLoadingState());
     try {
-      final failureOrDone = await _dealsUsecase.joinDeal(joinDealModel: JoinDealModel());
+      final failureOrDone = await _dealsUsecase.joinDeal(
+          joinDealModel: JoinDealModel(
+        amount: totalDealValue,
+        campaignId: campaignId,
+        walletId: walletId,
+      ));
       final either = AppUtils.mapFailuerOrDone(either: failureOrDone);
       if (either.data != null) {
         final data = either.data as BaseResponse;
-        //! return data 
+        log('data is ${data.toJson()}', name: 'joinDeal');
+        //! return data
         emit(JoinDealLoadedState());
       }
     } catch (e) {
       log('Error is $e', name: 'getMyDeals');
       emit(JoinDealErrorState(message: e.toString()));
     }
+  }
+
+  void changeDealValue(String v) {
+    dealValue = v;
+    if (v.isNotEmpty) {
+      serviceFees =
+          double.parse(dealValue ?? '0') * 0.1; //! 0.1 is the default of fees
+      totalDealValue = double.parse(dealValue ?? '0') + serviceFees!;
+    }
+    emit(JoinDealValueChangedState());
   }
 }

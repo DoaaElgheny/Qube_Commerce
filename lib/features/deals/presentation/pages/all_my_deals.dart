@@ -12,6 +12,8 @@ import 'package:qubeCommerce/injection_container.dart';
 import 'package:qubeCommerce/shared/widget/loader_widget.dart';
 import 'package:sizer/sizer.dart';
 
+import '../widgets/paginated_widget.dart';
+
 class AllMyDealsScreen extends StatefulWidget {
   const AllMyDealsScreen({super.key});
 
@@ -28,140 +30,138 @@ class _AllMyDealsScreenState extends State<AllMyDealsScreen> {
       body: BlocProvider(
         create: (context) => serviceLocator<DealsCubit>()..getMyDeals(),
         child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 20.h,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0)),
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: AssetImage("assets/images_new/header_back.png"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 45,
-                              height: 45,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: const Color(0XFF000080),
-                                ),
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Center(
-                                  child: Image.asset(
-                                    'assets/images/png/chevron-down.png',
-                                    width: 25,
-                                    height: 25,
-                                    color: const Color(0XFF000080),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Container(
-                              width: 45,
-                              height: 45,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: const Color(0XFF000080),
-                                ),
-                              ),
-                              child: Center(
-                                child: Image.asset(
-                                  'assets/images/png/bell.png',
-                                  width: 25,
-                                  height: 25,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: TextFiledCustom(
-                          isReadOnly: false,
-                          onTab: () {
-                            // Navigator.pushNamed(context, Routes.searchScreen);
-                          },
-                          onChanged: (val) {},
-                          isBorder: true,
-                          isFilled: true,
-                          borderColor: AppColors.containerNotificationHomeColor,
-                          vertical: 5,
-                          prifixIcon: Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  start: 8.0, end: 8),
-                              child:
-                                  SvgPicture.asset(ImageAssets.search_explor)),
-                          suffixIcon: InkWell(
-                            onTap: () {
-                              showModalBottomSheet(
-                                isScrollControlled: true,
-                                enableDrag: true,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10),
-                                  ),
-                                ),
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const FilterBottomSheet();
-                                },
-                              );
-                            },
-                            child: Padding(
-                                padding: const EdgeInsetsDirectional.only(
-                                    end: 8.0, start: 8),
-                                child:
-                                    SvgPicture.asset(ImageAssets.filter_icon)),
-                          ),
-                          validator: (v) {
-                            return null;
-                          },
-                          textInputType: TextInputType.text,
-                          hintColor: AppColors.hintColor,
-                          fillColor: Colors.white,
-                          errorColorBorder: Colors.red,
-                          hintText: 'Search',
-                          controller: searchControllerHome,
-                        ),
-                      ),
-                    ],
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 20.h,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20.0),
+                      bottomRight: Radius.circular(20.0)),
+                  color: Colors.white,
+                  image: DecorationImage(
+                    image: AssetImage("assets/images_new/header_back.png"),
+                    fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(height: 24),
-                BlocBuilder<DealsCubit, DealsState>(
-                  builder: (context, state) {
-                    final cubit = DealsCubit.get(context);
-                    if (cubit.myDeals == null) {
-                      return LoaderWidget.circleProgressIndicator();
-                    } else if (cubit.myDeals!.isEmpty) {
-                      return const SizedBox.shrink();
-                    }
-                    return Column(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0XFF000080),
+                              ),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Center(
+                                child: Image.asset(
+                                  'assets/images/png/chevron-down.png',
+                                  width: 25,
+                                  height: 25,
+                                  color: const Color(0XFF000080),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0XFF000080),
+                              ),
+                            ),
+                            child: Center(
+                              child: Image.asset(
+                                'assets/images/png/bell.png',
+                                width: 25,
+                                height: 25,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: TextFiledCustom(
+                        isReadOnly: false,
+                        onTab: () {
+                          // Navigator.pushNamed(context, Routes.searchScreen);
+                        },
+                        onChanged: (val) {},
+                        isBorder: true,
+                        isFilled: true,
+                        borderColor: AppColors.containerNotificationHomeColor,
+                        vertical: 5,
+                        prifixIcon: Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                                start: 8.0, end: 8),
+                            child: SvgPicture.asset(ImageAssets.search_explor)),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              enableDrag: true,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const FilterBottomSheet();
+                              },
+                            );
+                          },
+                          child: Padding(
+                              padding: const EdgeInsetsDirectional.only(
+                                  end: 8.0, start: 8),
+                              child: SvgPicture.asset(ImageAssets.filter_icon)),
+                        ),
+                        validator: (v) {
+                          return null;
+                        },
+                        textInputType: TextInputType.text,
+                        hintColor: AppColors.hintColor,
+                        fillColor: Colors.white,
+                        errorColorBorder: Colors.red,
+                        hintText: 'Search',
+                        controller: searchControllerHome,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              BlocBuilder<DealsCubit, DealsState>(
+                builder: (context, state) {
+                  final cubit = DealsCubit.get(context);
+                  if (cubit.myDeals == null) {
+                    return LoaderWidget.circleProgressIndicator();
+                  } else if (cubit.myDeals!.isEmpty) {
+                    return const SizedBox.shrink();
+                  }
+                  return Expanded(
+                    child: Column(
                       children: [
                         const SizedBox(
                           height: 15,
@@ -197,27 +197,32 @@ class _AllMyDealsScreenState extends State<AllMyDealsScreen> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        for (var deal in cubit.myDeals!) ...{
-                          SpecialBookedCard(
-                            deal: deal,
-                        
-          
-                            svgPath1: 'assets/icons/overview_section/Bag 1.svg',
-                            svgPath2:
-                                'assets/icons/overview_section/Calender 1.svg',
-                            
+                        Expanded(
+                          child: PaginatedWidget(
+                            items: cubit.myDeals!,
+                            itemBuilder: (context, item) => SpecialBookedCard(
+                              deal: item,
+                              svgPath1:
+                                  'assets/icons/overview_section/Bag 1.svg',
+                              svgPath2:
+                                  'assets/icons/overview_section/Calender 1.svg',
+                            ),
+                            loadMore: () async {
+                              if (cubit.myDealsData!.hasNextPage!) {
+                                await cubit.getMyDeals(
+                                    page: cubit.myDealsData!.pageNumber! + 1);
+                              }
+                              return cubit.myDeals!;
+                            },
                           ),
-                          const SizedBox(
-                            height: 15,
-                          )
-                        },
+                        ),
                       ],
-                    );
-                  },
-                ),
-                const SizedBox(height: 40),
-              ],
-            ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 40),
+            ],
           ),
         ),
       ),

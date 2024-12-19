@@ -3,7 +3,7 @@ import 'dart:convert';
 
 class JoinDealModel {
   final int? campaignId;
-  final int? amount;
+  final dynamic amount;
   final String? walletId;
   JoinDealModel({
     this.campaignId,
@@ -13,7 +13,7 @@ class JoinDealModel {
 
   JoinDealModel copyWith({
     int? campaignId,
-    int? amount,
+    dynamic amount,
     String? walletId,
   }) {
     return JoinDealModel(
@@ -34,7 +34,7 @@ class JoinDealModel {
   factory JoinDealModel.fromMap(Map<String, dynamic> map) {
     return JoinDealModel(
       campaignId: map['campaignId'] != null ? map['campaignId'] as int : null,
-      amount: map['amount'] != null ? map['amount'] as int : null,
+      amount: map['amount'] != null ? map['amount'] as dynamic : null,
       walletId: map['walletId'] != null ? map['walletId'] as String : null,
     );
   }

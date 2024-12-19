@@ -66,17 +66,19 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
 
   // Calculate the time difference
   void _calculateTimeDifference() {
-    final now = DateTime.now();
-    final startDate = DateTime.parse(widget.deal!.startDate!);
-    final isDateAfter = startDate.isAfter(now);
-    if (isDateAfter) {
-      final difference = now.difference(startDate).abs();
-      setState(() {
-        hours = difference.inHours;
-        minutes = difference.inMinutes.remainder(60);
-        seconds = difference.inSeconds.remainder(60);
-      });
-    }
+    // final now = DateTime.now();
+    // final startDate = DateTime.parse(widget.deal!.startDate!);
+    // final isDateAfter = startDate.isAfter(now);
+    // if (isDateAfter) {
+    //   final difference = now.difference(startDate).abs();
+    final time =
+        AppUtils.calculateTimeDifference(date: widget.deal!.startDate!);
+    setState(() {
+      hours = time!.hours;
+      minutes = time.minutes;
+      seconds = time.seconds;
+    });
+    // }
   }
 
   @override
@@ -107,28 +109,27 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                             ),
                             child: Row(
                               children: [
-                          
-                                Container(
-                                  width: 150,
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        AppColors.carouselSliderContainerColor,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .translate('join')!,
-                                      style: TextStyle(
-                                        color:
-                                            AppColors.redLinearGradientLighter,
-                                        fontSize: 14,
+                                Expanded(
+                                  child: Container(
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      color: AppColors
+                                          .carouselSliderContainerColor,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate('join')!,
+                                        style: TextStyle(
+                                          color: AppColors
+                                              .redLinearGradientLighter,
+                                          fontSize: 14,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                           
-                               Container(
+                                Container(
                                   width: 55,
                                   height: 45,
                                   decoration: BoxDecoration(
@@ -153,7 +154,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       Text(
                                         AppLocalizations.of(context)!
                                             .translate('seconds')!,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 12,
                                         ),
                                       ),
@@ -186,7 +187,7 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       Text(
                                         AppLocalizations.of(context)!
                                             .translate('miuntes')!,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 12,
                                         ),
                                       ),
@@ -194,7 +195,6 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                   ),
                                 ),
                                 const SizedBox(width: 2),
-                             
                                 Container(
                                   width: 55,
                                   height: 45,
@@ -220,14 +220,13 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                       Text(
                                         AppLocalizations.of(context)!
                                             .translate('hours')!,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 12,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                               
                               ],
                             ),
                           ),
@@ -306,14 +305,14 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                     ],
                                   ),
                                   Row(
-                                    children: [ SvgPicture.asset(
+                                    children: [
+                                      SvgPicture.asset(
                                         widget.svgPath1,
                                         width: widget.showCarouselSliderTwo!
                                             ? 19.5
                                             : 14.6,
                                       ),
-                                       const SizedBox(width: 4),
-                                     
+                                      const SizedBox(width: 4),
                                       Text(
                                         widget.showNumberOfPeople
                                             ? '${widget.numberOfPeople ?? 0}'
@@ -329,7 +328,6 @@ class _SpecialBookedCardState extends State<SpecialBookedCard> {
                                               : AppColors.productTextGreenColor,
                                         ),
                                       ),
-                                     
                                     ],
                                   ),
                                 ],
