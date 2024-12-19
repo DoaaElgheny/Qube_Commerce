@@ -16,10 +16,12 @@ class DealsUsecase {
   }
 
   Future<Either<Failure, BaseResponse>> getMyDeals(
-      {required int pageNumber, required int pageSize}) async {
+      {required int pageNumber, required int pageSize,     int? status
+}) async {
     return await _repo.getMyDeals(
       pageNumber: pageNumber,
       pageSize: pageSize,
+      status: status,
     );
   }
 

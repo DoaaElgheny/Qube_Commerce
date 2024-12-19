@@ -36,4 +36,21 @@ class AppUtils {
   static Object? getArguments(BuildContext context) {
     return ModalRoute.of(context)!.settings.arguments;
   }
+
+  // Calculate the time difference
+ static ({int hours, int minutes, int seconds})? calculateTimeDifference(
+      {required String date}) {
+    final now = DateTime.now();
+    final startDate = DateTime.parse(date);
+    final isDateAfter = startDate.isAfter(now);
+    if (isDateAfter) {
+      final difference = now.difference(startDate).abs();
+      return (
+        hours: difference.inHours,
+        minutes: difference.inMinutes.remainder(60),
+        seconds: difference.inSeconds.remainder(60)
+      );
+    }
+    return (hours: 0, minutes: 0, seconds: 0);
+  }
 }

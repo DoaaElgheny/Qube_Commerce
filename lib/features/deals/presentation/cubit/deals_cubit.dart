@@ -17,15 +17,16 @@ class DealsCubit extends Cubit<DealsState> {
   final _dealsUsecase = serviceLocator<DealsUsecase>();
   List<DealModel?>? availableDeals;
   Data? availableDealsData;
-  List<DealModel?>? myDeals ;
+  Data? myDealsData;
+  List<DealModel?>? myDeals;
   DealsDetailsModel? dealsDetailsModel;
 
-  Future<void> getAvailableDeals() async {
+  Future<void> getAvailableDeals({int page = 1}) async {
     emit(DealsLoadingState());
     try {
       final failureOrDone = await _dealsUsecase.getAvailableDeals(
         getAvailableDealsModel: GetAvailableDealsModel(
-          pageNumber: 1,
+          pageNumber: page,
           pageSize: 10,
         ),
       );
@@ -44,18 +45,18 @@ class DealsCubit extends Cubit<DealsState> {
     }
   }
 
-  Future<void> getMyDeals() async {
+  Future<void> getMyDeals({int page = 1}) async {
     emit(GetMyDealsLoadingState());
     try {
       final failureOrDone = await _dealsUsecase.getMyDeals(
-        pageNumber: 1,
+        pageNumber: page,
         pageSize: 10,
       );
       final either = AppUtils.mapFailuerOrDone(either: failureOrDone);
       if (either.data != null) {
         final data = either.data as BaseResponse;
-
-        myDeals = Data.fromMap(data.data!).data as List<DealModel?>;
+        myDealsData = Data.fromMap(data.data!);
+        myDeals = myDealsData!.data as List<DealModel?>;
         emit(GetMyDealsLoadedState());
       }
     } catch (e) {

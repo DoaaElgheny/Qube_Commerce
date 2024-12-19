@@ -27,10 +27,13 @@ class DealsRepoImpl implements DealsRepo {
 
   @override
   Future<Either<Failure, BaseResponse>> getMyDeals(
-      {required int pageNumber, required int pageSize}) async {
+      {required int pageNumber, required int pageSize, int? status}) async {
     try {
       final failureOrDone = await _remoteDatasourse.getMyDeals(
-          pageNumber: pageNumber, pageSize: pageSize);
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+        status: status,
+      );
       return Right(failureOrDone);
     } on DioException catch (e) {
       return Left(_failureHandler.getFailureType(e));
@@ -38,7 +41,8 @@ class DealsRepoImpl implements DealsRepo {
   }
 
   @override
-  Future<Either<Failure, BaseResponse>> getDetailsById({required int id}) async {
+  Future<Either<Failure, BaseResponse>> getDetailsById(
+      {required int id}) async {
     try {
       final failureOrDone = await _remoteDatasourse.getDetailsById(id: id);
       return Right(failureOrDone);
