@@ -30,7 +30,8 @@ class _AllMyDealsScreenState extends State<AllMyDealsScreen> {
       body: BlocProvider(
         create: (context) => serviceLocator<DealsCubit>()..getMyDeals(),
         child: SafeArea(
-          child: Column(
+          child: ListView(
+            shrinkWrap: true,
             children: [
               Container(
                 width: double.infinity,
@@ -114,7 +115,8 @@ class _AllMyDealsScreenState extends State<AllMyDealsScreen> {
                         prifixIcon: Padding(
                             padding: const EdgeInsetsDirectional.only(
                                 start: 8.0, end: 8),
-                            child: SvgPicture.asset(ImageAssets.search_explor)),
+                            child:
+                                SvgPicture.asset(ImageAssets.search_explor)),
                         suffixIcon: InkWell(
                           onTap: () {
                             showModalBottomSheet(
@@ -135,7 +137,8 @@ class _AllMyDealsScreenState extends State<AllMyDealsScreen> {
                           child: Padding(
                               padding: const EdgeInsetsDirectional.only(
                                   end: 8.0, start: 8),
-                              child: SvgPicture.asset(ImageAssets.filter_icon)),
+                              child:
+                                  SvgPicture.asset(ImageAssets.filter_icon)),
                         ),
                         validator: (v) {
                           return null;
@@ -160,68 +163,67 @@ class _AllMyDealsScreenState extends State<AllMyDealsScreen> {
                   } else if (cubit.myDeals!.isEmpty) {
                     return const SizedBox.shrink();
                   }
-                  return Expanded(
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16.0, right: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .translate('Available_deals')!,
-                                    style: TextStyle(
-                                      color: AppColors.greyTextDarkColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                  return Column(
+                    children: [
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 16.0, right: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .translate('Available_deals')!,
+                                  style: TextStyle(
+                                    color: AppColors.greyTextDarkColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ],
-                              ),
-                              Text(
-                                '${cubit.myDeals!.length}${AppLocalizations.of(context)!.translate('deals')!}',
-                                style: TextStyle(
-                                  // Underline thickness
-
-                                  fontSize: 14,
-                                  color: AppColors.primaryColor,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Expanded(
-                          child: PaginatedWidget(
-                            items: cubit.myDeals!,
-                            itemBuilder: (context, item) => SpecialBookedCard(
-                              deal: item,
-                              svgPath1:
-                                  'assets/icons/overview_section/Bag 1.svg',
-                              svgPath2:
-                                  'assets/icons/overview_section/Calender 1.svg',
+                              ],
                             ),
-                            loadMore: () async {
-                              if (cubit.myDealsData!.hasNextPage!) {
-                                await cubit.getMyDeals(
-                                    page: cubit.myDealsData!.pageNumber! + 1);
-                              }
-                              return cubit.myDeals!;
-                            },
-                          ),
+                            Text(
+                              '${cubit.myDeals!.length}${AppLocalizations.of(context)!.translate('deals')!}',
+                              style: TextStyle(
+                                // Underline thickness
+                  
+                                fontSize: 14,
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 16),
+                      PaginatedWidget(
+                        items: cubit.myDeals!,
+                        itemBuilder: (context, item) => SpecialBookedCard(
+                          deal: item,
+                          svgPath1:
+                              'assets/icons/overview_section/Bag 1.svg',
+                          svgPath2:
+                              'assets/icons/overview_section/Calender 1.svg',
+                        ),
+                        loadMore: () async {
+                          if (cubit.myDealsData!.hasNextPage!) {
+                            await cubit.getMyDeals(
+                                page: cubit.myDealsData!.pageNumber! + 1);
+                          }
+                          return cubit.myDeals!;
+                        },
+                      ),
+                  
+                    ],
                   );
                 },
               ),
               const SizedBox(height: 40),
+           
             ],
           ),
         ),

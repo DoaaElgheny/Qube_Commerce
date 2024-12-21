@@ -81,6 +81,7 @@ class _PaginatedWidgetState<T> extends State<PaginatedWidget<T>> {
     }
 
     return ListView.builder(
+      shrinkWrap: true,
       controller: _scrollController,
       // padding: widget.padding,
       physics: const BouncingScrollPhysics(),

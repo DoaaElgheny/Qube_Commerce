@@ -29,7 +29,7 @@ class _AllAvaliableScreenState extends State<AllAvaliableScreen> {
       body: BlocProvider(
         create: (context) => serviceLocator<DealsCubit>()..getAvailableDeals(),
         child: SafeArea(
-          child: Column(
+          child: ListView(
             children: [
               Container(
                 width: double.infinity,
@@ -198,42 +198,40 @@ class _AllAvaliableScreenState extends State<AllAvaliableScreen> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Expanded(
-                          child: PaginatedWidget(
-                            items: cubit.availableDeals!,
-                            itemBuilder: (context, item) => SpecialBookedCard(
-                              deal: item,
-                              height: 420,
-                              box: true,
-                              showButton: false,
-                              numberOfPeople: 6,
-                              showNumberOfPeople: true,
-                              linearProgressIndicator: LinearProgressIndicator(
-                                backgroundColor:
-                                    AppColors.backgroundProgressBarGreyColor,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppColors.green),
-                                color: Colors.transparent,
-                                minHeight: 12,
-                                value: 0.5,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              showCarouselSliderTwo: true,
-                                    
-                              svgPath1: 'assets/icons/overview_section/Bag 1.svg',
-                              svgPath2:
-                                  'assets/icons/overview_section/Calender 1.svg',
-                              // date: AppUtils.formatDateToString(deal.startDate!)??'',
+                        PaginatedWidget(
+                          items: cubit.availableDeals!,
+                          itemBuilder: (context, item) => SpecialBookedCard(
+                            deal: item,
+                            height: 420,
+                            box: true,
+                            showButton: false,
+                            numberOfPeople: 6,
+                            showNumberOfPeople: true,
+                            linearProgressIndicator: LinearProgressIndicator(
+                              backgroundColor:
+                                  AppColors.backgroundProgressBarGreyColor,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.green),
+                              color: Colors.transparent,
+                              minHeight: 12,
+                              value: 0.5,
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            loadMore: () async {
-                              if (cubit.availableDealsData!.hasNextPage!) {
-                                await cubit.getAvailableDeals(
-                                    page: cubit.availableDealsData!.pageNumber! +
-                                        1);
-                              }
-                              return cubit.availableDeals!;
-                            },
+                            showCarouselSliderTwo: true,
+                                  
+                            svgPath1: 'assets/icons/overview_section/Bag 1.svg',
+                            svgPath2:
+                                'assets/icons/overview_section/Calender 1.svg',
+                            // date: AppUtils.formatDateToString(deal.startDate!)??'',
                           ),
+                          loadMore: () async {
+                            if (cubit.availableDealsData!.hasNextPage!) {
+                              await cubit.getAvailableDeals(
+                                  page: cubit.availableDealsData!.pageNumber! +
+                                      1);
+                            }
+                            return cubit.availableDeals!;
+                          },
                         ),
                         // for (var deal in cubit.availableDeals!) ...{
                         //   SpecialBookedCard(

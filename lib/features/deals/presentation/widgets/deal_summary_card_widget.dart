@@ -75,7 +75,7 @@ class DealSummaryCardWidget extends StatelessWidget {
                       width: 3,
                     ),
                     Text(
-                      "${joinDealCubit.dealValue}",
+                      joinDealCubit.dealValue??'0',
                       style: const TextStyle(
                         color: Color(0xFF718096),
                         fontSize: 14,
@@ -118,7 +118,7 @@ class DealSummaryCardWidget extends StatelessWidget {
                       width: 3,
                     ),
                     Text(
-                      "${joinDealCubit.serviceFees}",
+                      "${joinDealCubit.serviceFees??'0'}",
                       style: const TextStyle(
                         color: Color(0xFF718096),
                         fontSize: 14,
@@ -215,7 +215,7 @@ class DealSummaryCardWidget extends StatelessWidget {
                         width: 3,
                       ),
                       Text(
-                        "${joinDealCubit.totalDealValue}",
+                        "${joinDealCubit.totalDealValue??'0'}",
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
