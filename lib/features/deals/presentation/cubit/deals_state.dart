@@ -20,7 +20,10 @@ class GetMyDealsLoadingState extends DealsState {}
 class GetMyDealsLoadedState extends DealsState {}
 
 class GetDetailsOfDealsLoadingState extends DealsState {}
+
 class GetDetailsOfDealsLoadedState extends DealsState {}
+
+class DealsSearchChangedState extends DealsState {}
 
 class DealsErrorState extends DealsState {
   const DealsErrorState({required String super.message, super.title});

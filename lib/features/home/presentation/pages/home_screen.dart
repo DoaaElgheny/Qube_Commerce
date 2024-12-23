@@ -5,13 +5,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:qubeCommerce/config/locale/app_localizations.dart';
 import 'package:qubeCommerce/config/routes/app_routes.dart';
 import 'package:qubeCommerce/core/authentication/provider.dart';
+import 'package:qubeCommerce/core/prefs/my_shared_prefs.dart';
 import 'package:qubeCommerce/core/utils/app_colors.dart';
+import 'package:qubeCommerce/core/utils/app_strings.dart';
 import 'package:qubeCommerce/injection_container.dart';
 import 'package:qubeCommerce/shared/widget/loader_widget.dart';
+import 'package:sizer/sizer.dart';
 import '../../../../core/shared_widgets/app_text.dart';
 import '../../../deals/deals_export.dart';
 import '../../../wallet/wallet_export.dart';
-import '../widgets/special_booked_list_widget.dart';
 import '../widgets/special_booked_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -131,10 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 BlocBuilder<DealsCubit, DealsState>(
                   builder: (context, state) {
                     final cubit = DealsCubit.get(context);
-                    if (cubit.myDeals==null) {
+                    if (cubit.myDeals == null) {
                       return LoaderWidget.circleProgressIndicator();
-                    }
-                    else if (cubit.myDeals!.isEmpty) {
+                    } else if (cubit.myDeals!.isEmpty) {
                       return const SizedBox.shrink();
                     }
                     return Column(
@@ -186,21 +187,45 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
-                        SpecialBookedListCard(
-                          specialBookedCard: cubit.myDeals!.map((deal) {
-                            return SpecialBookedCard(
-                              // image: deal!.picture!.filePath!,
-                              // productCategory: deal.categoryTitle!,
-                              // productName: deal.name!,
-                              // productNumber: deal.participantsCount,
-                              deal: deal,
-                              svgPath1:
-                                  'assets/icons/overview_section/Bag 1.svg',
-                              svgPath2:
-                                  'assets/icons/overview_section/Calender 1.svg',
-                              // date: '2024-10-10',
-                            );
-                          }).toList(),
+                       
+                        SizedBox(
+                          height: 36.h,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: List.generate(cubit.myDeals!.length,
+                                      (index) {
+                                    return Padding(
+                                        padding: EdgeInsets.only(
+                                            right: SharedPrefController()
+                                                        .languageCode ==
+                                                    AppStrings.englishCode
+                                                ? 13
+                                                : 0,
+                                            left: SharedPrefController()
+                                                        .languageCode ==
+                                                    AppStrings.arabicCode
+                                                ? 1
+                                                : 0),
+                                        child: Container(
+                                          height: double.infinity,
+                                          width: 350,
+                                          child: SpecialBookedCard(
+                                            deal: cubit.myDeals![index],
+                                            svgPath1:
+                                                'assets/icons/overview_section/Bag 1.svg',
+                                            svgPath2:
+                                                'assets/icons/overview_section/Calender 1.svg',
+                                          ),
+                                        ));
+                                  })),
+                            ),
+                          ),
                         ),
                       ],
                     );
@@ -264,35 +289,67 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        SpecialBookedListCard(
-                          carouselHeight: 433,
-                          specialBookedCard: cubit.availableDeals!.map((deal) {
-                            return SpecialBookedCard(
-                              deal: deal,
-                              height: 420,
-                              box: true,
-                              showButton: false,
-                              numberOfPeople: deal!.participantsCount,
-                              showNumberOfPeople: true,
-                              linearProgressIndicator: LinearProgressIndicator(
-                                backgroundColor:
-                                    AppColors.backgroundProgressBarGreyColor,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppColors.green),
-                                color: Colors.transparent,
-                                minHeight: 12,
-                                value: 0.5,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              showCarouselSliderTwo: true,
+                        SizedBox(
+                          height: 45.h,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: List.generate(
+                                      cubit.availableDeals!.length, (index) {
+                                    return Padding(
+                                        padding: EdgeInsets.only(
+                                            right: SharedPrefController()
+                                                        .languageCode ==
+                                                    AppStrings.englishCode
+                                                ? 13
+                                                : 0,
+                                            left: SharedPrefController()
+                                                        .languageCode ==
+                                                    AppStrings.arabicCode
+                                                ? 1
+                                                : 0),
+                                        child: Container(
+                                          height: double.infinity,
+                                          width: 350,
+                                          child: SpecialBookedCard(
+                                            deal: cubit.availableDeals![index],
 
-                              svgPath1:
-                                  'assets/icons/overview_section/Bag 1.svg',
-                              svgPath2:
-                                  'assets/icons/overview_section/Calender 1.svg',
-                              // date: AppUtils.formatDateToString(deal.startDate!)??'',
-                            );
-                          }).toList(),
+                                            box: true,
+                                            showButton: false,
+                                            numberOfPeople: cubit
+                                                .availableDeals![index]!
+                                                .participantsCount,
+                                            showNumberOfPeople: true,
+                                            linearProgressIndicator:
+                                                LinearProgressIndicator(
+                                              backgroundColor: AppColors
+                                                  .backgroundProgressBarGreyColor,
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      AppColors.green),
+                                              color: Colors.transparent,
+                                              minHeight: 12,
+                                              value: 0.5,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            showCarouselSliderTwo: true,
+
+                                            svgPath1:
+                                                'assets/icons/overview_section/Bag 1.svg',
+                                            svgPath2:
+                                                'assets/icons/overview_section/Calender 1.svg',
+                                            // date: AppUtils.formatDateToString(deal.startDate!)??'',
+                                          ),
+                                        ));
+                                  })),
+                            ),
+                          ),
                         ),
                       ],
                     );

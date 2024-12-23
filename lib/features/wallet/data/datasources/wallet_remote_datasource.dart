@@ -11,6 +11,7 @@ abstract class WalletRemoteDatasource {
   Future<BaseResponse> getMyWallets();
   Future<BaseResponse> addDeposit({required DepositModel deposit});
   Future<BaseResponse> makeWithdraw({required DepositModel withdrawModel});
+  Future<BaseResponse> getPaymentMethods();
 }
 
 class WalletRemoteDatasourceImpl implements WalletRemoteDatasource {
@@ -46,4 +47,12 @@ class WalletRemoteDatasourceImpl implements WalletRemoteDatasource {
     );
     return Future.value(BaseResponse.fromMap(response.data));
   }
+
+  @override
+  Future<BaseResponse> getPaymentMethods() async {
+    final Response response = await _httpHelper.get(
+      EndPoints.paymentMethodsLookup,
+    );
+    return Future.value(BaseResponse.fromMap(response.data));
+}
 }

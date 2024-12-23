@@ -5,6 +5,7 @@ import '../utils/app_strings.dart';
 
 class TextFiledCustom extends StatelessWidget {
   late Function(String val) onChanged;
+  late Function(String val)? onFieldSubmitted;
   late Function()? onTab;
   late String? Function(dynamic t) validator;
   late TextEditingController controller;
@@ -37,6 +38,7 @@ class TextFiledCustom extends StatelessWidget {
   TextFiledCustom({
     super.key,
     required this.onChanged,
+    this.onFieldSubmitted,
     this.suffixIcon,
     this.prifixIcon,
     this.prifix,
@@ -72,6 +74,7 @@ class TextFiledCustom extends StatelessWidget {
     return TextFormField(
         obscureText: isObscureText,
         onChanged: onChanged,
+        onFieldSubmitted: onFieldSubmitted,
         maxLines: maxLines,
         minLines: minLines,
         readOnly: isReadOnly,

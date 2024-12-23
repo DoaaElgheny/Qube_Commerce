@@ -44,7 +44,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen>
       resizeToAvoidBottomInset: false,
       extendBody: false,
       body: BlocProvider(
-        create: (context) => serviceLocator<WalletCubit>()..getMyWallets(),
+        create: (context) => serviceLocator<WalletCubit>()..getMyWallets() ,
         child: BlocBuilder<ButtomnavigationbarCubit, SelectedTabNavigationBar>(
           builder: (context, currentIndex) {
             if (currentIndex == SelectedTabNavigationBar.home) {

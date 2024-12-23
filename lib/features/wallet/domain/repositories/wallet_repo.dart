@@ -9,4 +9,6 @@ abstract class WalletRepo {
       {required DepositModel deposit});
   Future<Either<Failure, BaseResponse>> makeWithdraw(
       {required DepositModel withdrawModel});
+  Future<Either<Failure, BaseResponse>> getPaymentMethods(
+      );
 }

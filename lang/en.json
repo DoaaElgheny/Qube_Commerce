@@ -107,5 +107,7 @@
   "hours":"hours",
   "miuntes":"miuntes",
   "seconds":"seconds",
-  "join":"Join in"
+  "join":"Join in",
+  "withdraw_successfully":"Withdraw successfully",
+  "something_went_wrong":"Something went wrong"
 }

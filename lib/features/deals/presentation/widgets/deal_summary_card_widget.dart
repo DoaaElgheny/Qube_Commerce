@@ -15,6 +15,7 @@ class DealSummaryCardWidget extends StatelessWidget {
           children: [
             Container(
               height: 48,
+
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
@@ -26,29 +27,19 @@ class DealSummaryCardWidget extends StatelessWidget {
               ),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      height: 50,
-                      width: 50,
-                      child: Image.asset("assets/images/png/Cancel.png")),
-                  Row(
-                    children: [
-                      const Text(
-                        "ملخص الإستثمار",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      Image.asset("assets/images/png/Summary.png",
-                          height: 23, fit: BoxFit.cover),
-                    ],
+                  Image.asset("assets/images/png/Summary.png",
+                      height: 23, fit: BoxFit.cover),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  const Text(
+                    "ملخص الإستثمار",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ],
               ),
@@ -57,53 +48,17 @@ class DealSummaryCardWidget extends StatelessWidget {
               height: 20,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(),
-                const SizedBox(),
-                Row(
-                  children: [
-                    const Text(
-                      "ج.م",
-                      style: TextStyle(
-                        color: Color(0xFF718096),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 3,
-                    ),
-                    Text(
-                      joinDealCubit.dealValue??'0',
-                      style: const TextStyle(
-                        color: Color(0xFF718096),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(),
-                const SizedBox(),
                 const Text(
-                  "       :قيمة الإنضمام",
+                  ":قيمة الإنضمام",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const SizedBox(),
-                const SizedBox(),
+            
                 Row(
                   children: [
                     const Text(
@@ -118,7 +73,7 @@ class DealSummaryCardWidget extends StatelessWidget {
                       width: 3,
                     ),
                     Text(
-                      "${joinDealCubit.serviceFees??'0'}",
+                      joinDealCubit.dealValue ?? '0',
                       style: const TextStyle(
                         color: Color(0xFF718096),
                         fontSize: 14,
@@ -127,8 +82,17 @@ class DealSummaryCardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(),
-                const SizedBox(),
+             
+             
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+             
                 const Text(
                   "%رسوم الخدمة 10",
                   style: TextStyle(
@@ -137,16 +101,48 @@ class DealSummaryCardWidget extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+             
+                Row(
+                  children: [
+                    const Text(
+                      "ج.م",
+                      style: TextStyle(
+                        color: Color(0xFF718096),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 3,
+                    ),
+                    Text(
+                      "${joinDealCubit.serviceFees ?? '0'}",
+                      style: const TextStyle(
+                        color: Color(0xFF718096),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+             
               ],
             ),
             const SizedBox(
               height: 15,
             ),
             const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(),
-                SizedBox(),
+                 Text(
+                  "الخصم",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+            
                 Row(
                   children: [
                     Text(
@@ -170,16 +166,8 @@ class DealSummaryCardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(),
-                SizedBox(),
-                Text(
-                  "                  الخصم",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+             
+              
               ],
             ),
             const SizedBox(
@@ -200,7 +188,14 @@ class DealSummaryCardWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SizedBox(),
+                    const Text(
+                    "الإجمالي",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
                   Row(
                     children: [
                       const Text(
@@ -215,7 +210,7 @@ class DealSummaryCardWidget extends StatelessWidget {
                         width: 3,
                       ),
                       Text(
-                        "${joinDealCubit.totalDealValue??'0'}",
+                        "${joinDealCubit.totalDealValue ?? '0'}",
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -223,16 +218,6 @@ class DealSummaryCardWidget extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                  const SizedBox(),
-                  const SizedBox(),
-                  const Text(
-                    "الإجمالي",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
                   ),
                 ],
               ),

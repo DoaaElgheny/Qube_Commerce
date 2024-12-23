@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overlay_support/overlay_support.dart';
+import 'package:qubeCommerce/config/routes/app_routes.dart';
 import 'package:qubeCommerce/core/api/end_points.dart';
 import 'package:qubeCommerce/core/utils/app_utils.dart';
 import 'package:qubeCommerce/features/wallet/presentation/cubit/wallet_cubit.dart';
@@ -57,42 +57,49 @@ class JoinDealScreen extends StatelessWidget {
                 ),
                 Card(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(),
-                      Expanded(
-                        child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.end,
-                          // crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${dealDetails.name}',
+                      Container(
+                        height: 136,
+                        width: 135,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    '${EndPoints.baseUrl}/${dealDetails.pictures!.first.filePath}'))),
+                      ),
+                      Column(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${dealDetails.name}',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                maxLines: 1,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text("${dealDetails.campaignCode}",
                                   style: const TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  maxLines: 1,
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text("${dealDetails.campaignCode}",
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400,
-                                    )),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Column(
+                                    fontWeight: FontWeight.w400,
+                                  )),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(":الحد الأدنى للإنضمام#",
@@ -103,14 +110,6 @@ class JoinDealScreen extends StatelessWidget {
                                     )),
                                 Row(
                                   children: [
-                                    const Text(
-                                      "ج.م",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Color(0xFF38A169),
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
                                     Text(
                                       "${dealDetails.minimumOrderValue}",
                                       style: const TextStyle(
@@ -119,21 +118,20 @@ class JoinDealScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
+                                    const Text(
+                                      "ج.م",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Color(0xFF38A169),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
                                   ],
                                 )
                               ],
                             ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 136,
-                        width: 135,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    '${EndPoints.baseUrl}/${dealDetails.pictures!.first.filePath}'))),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -158,16 +156,37 @@ class JoinDealScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // ElevatedButton(
-                      //   style: ElevatedButton.styleFrom(
-                      //     backgroundColor: Colors.white,
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(12),
-                      //     ),
-                      //   ),
-                      //   onPressed: () {
-                      //     // Add your logic for the button here
-                      //   },
+                      Row(
+                        children: [
+                          Image.asset("assets/images/png/Wallet.png",
+                              height: 23, fit: BoxFit.cover),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'رصيدي',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Text(
+                                'ج.م‎ ${walletCubit.myWallets!.first.availableBalance}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                       Container(
                         height: 40,
                         width: 68,
@@ -193,37 +212,6 @@ class JoinDealScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Row(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              const Text(
-                                'رصيدي',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              Text(
-                                'ج.م‎ ${walletCubit.myWallets!.first.availableBalance}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          Image.asset("assets/images/png/Wallet.png",
-                              height: 23, fit: BoxFit.cover),
-                        ],
-                      )
                     ],
                   ),
                 ),
@@ -234,7 +222,7 @@ class JoinDealScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
                           "قيمة الصفقة",
@@ -252,7 +240,7 @@ class JoinDealScreen extends StatelessWidget {
                           child: BlocBuilder<JoinDealCubit, JoinDealState>(
                             builder: (context, state) {
                               return TextField(
-                                textAlign: TextAlign.end,
+                                textAlign: TextAlign.start,
                                 maxLines: 1,
                                 decoration: InputDecoration(
                                   hintText: "مثال: 5000",
@@ -302,19 +290,11 @@ class JoinDealScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text(
-                              'إضافة كود خصم',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
+                           
+                           
+                          
                             Container(
                               height: 18,
                               width: 18,
@@ -334,6 +314,19 @@ class JoinDealScreen extends StatelessWidget {
                                 },
                               ),
                             )
+                        ,const SizedBox(
+                              width: 10,
+                            ),
+                         const Text(
+                              'إضافة كود خصم',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                        
+                        
                           ],
                         ),
                         // if (_isChecked)
@@ -392,6 +385,8 @@ class JoinDealScreen extends StatelessWidget {
                     if (state is JoinDealLoadedState) {
                       SnackBarUtility.successSnackBar(
                           context, 'تم اضافه الصفقة بنجاح');
+                             Navigator.pushNamed(
+                                      context, Routes.allMyDealsDeal);
                     } else if (state is JoinDealErrorState) {
                       SnackBarUtility.errorSnackBar(
                           context, state.message ?? '');

@@ -10,6 +10,7 @@ class DepositModel {
   final int? paymentMethodId;
   final String? walletId;
   final List<MetaDataModel>? metaData;
+
   DepositModel({
     this.amount,
     this.paymentMethodId,

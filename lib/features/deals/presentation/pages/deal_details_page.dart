@@ -30,248 +30,244 @@ class DealDetailsPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: 45,
-                                            height: 45,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: const Color(0XFF000080),
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Image.asset(
-                                                'assets/images/png/bookmark.png',
-                                                width: 25,
-                                                height: 25,
-                                                color: const Color(0XFF000080),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Container(
-                                            width: 45,
-                                            height: 45,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: const Color(0XFF000080),
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Image.asset(
-                                                'assets/images/png/share.png',
-                                                width: 25,
-                                                height: 25,
-                                                color: const Color(0XFF000080),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            width: 45,
-                                            height: 45,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: const Color(0XFF000080),
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Image.asset(
-                                                'assets/images/png/bell.png',
-                                                width: 25,
-                                                height: 25,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Container(
-                                            width: 45,
-                                            height: 45,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: const Color(0XFF000080),
-                                              ),
-                                            ),
-                                            child: InkWell(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Center(
-                                                child: Image.asset(
-                                                  'assets/images/png/chevron-down.png',
-                                                  width: 25,
-                                                  height: 25,
-                                                  color:
-                                                      const Color(0XFF000080),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            DealImagesCardWidget(
-                              pictures: deal.pictures ?? [],
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
-                              //height: 106,
-                              width: MediaQuery.of(context).size.width,
-                              child: Card(
-                                semanticContainer: true,
-                                //color: Colors.amber,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(18.0),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                "assets/images/png/people.png",
-                                                height: 16,
-                                                fit: BoxFit.cover,
-                                              ),
-                                              const SizedBox(width: 5),
-                                              const Text(
-                                                ':عدد المشتركين',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Color(0XFF06A6F1),
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 5),
-                                              Text(
-                                                '${deal.joiners}', // Dynamic count
-
-                                                style: const TextStyle(
-                                                  fontSize: 20,
-                                                  color: Color(0XFF06A6F1),
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'مدى ربحية الصفقة',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Transform(
-                                            alignment: Alignment.center,
-                                            transform: Matrix4.identity()
-                                              ..scale(-1.0,
-                                                  1.0), // Flips horizontally
-                                            child: LinearProgressIndicator(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              value: deal.profitPercentage,
-                                              backgroundColor: Colors.grey[300],
-                                              valueColor:
-                                                  const AlwaysStoppedAnimation<
-                                                      Color>(Colors.green),
-                                              minHeight: 13,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: Row(
+                                 mainAxisAlignment:
+                                         MainAxisAlignment.spaceBetween,
                               children: [
-                                Image.asset(
-                                  "assets/images/png/Time1.png",
-                                  height: 23,
-                                  fit: BoxFit.cover,
+                                   Row(
+                                     mainAxisAlignment:
+                                         MainAxisAlignment.start,
+                                     children: [
+                                       Container(
+                                         width: 45,
+                                         height: 45,
+                                         decoration: BoxDecoration(
+                                           shape: BoxShape.circle,
+                                           border: Border.all(
+                                             color: const Color(0XFF000080),
+                                           ),
+                                         ),
+                                         child: InkWell(
+                                           onTap: () {
+                                             Navigator.pop(context);
+                                           },
+                                           child: Center(
+                                             child: Image.asset(
+                                               'assets/images/png/chevron-down.png',
+                                               width: 25,
+                                               height: 25,
+                                               color:
+                                                   const Color(0XFF000080),
+                                             ),
+                                           ),
+                                         ),
+                                       ),
+                                        const SizedBox(
+                                         width: 15,
+                                       ),
+                                      Container(
+                                         width: 45,
+                                         height: 45,
+                                         decoration: BoxDecoration(
+                                           shape: BoxShape.circle,
+                                           border: Border.all(
+                                             color: const Color(0XFF000080),
+                                           ),
+                                         ),
+                                         child: Center(
+                                           child: Image.asset(
+                                             'assets/images/png/bell.png',
+                                             width: 25,
+                                             height: 25,
+                                           ),
+                                         ),
+                                       ),
+                                     
+                                     ],
+                                   ),
+                              
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      width: 45,
+                                      height: 45,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: const Color(0XFF000080),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Image.asset(
+                                          'assets/images/png/bookmark.png',
+                                          width: 25,
+                                          height: 25,
+                                          color: const Color(0XFF000080),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    Container(
+                                      width: 45,
+                                      height: 45,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: const Color(0XFF000080),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Image.asset(
+                                          'assets/images/png/share.png',
+                                          width: 25,
+                                          height: 25,
+                                          color: const Color(0XFF000080),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(width: 10),
-                                const Text(
-                                  'تاريخ الصفقات السابقة',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
+                               
+                          
                               ],
                             ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            if (deal.campaignHistories != null &&
-                                deal.campaignHistories!.isNotEmpty)
-                              Column(
-                                children: deal.campaignHistories!
-                                    .map(
-                                      (e) => CampaignHistoriesCardWidget(
-                                          campaignHistoriesModel: e),
-                                    )
-                                    .toList(),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          DealImagesCardWidget(
+                            pictures: deal.pictures ?? [],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
+                            //height: 106,
+                            width: MediaQuery.of(context).size.width,
+                            child: Card(
+                              semanticContainer: true,
+                              //color: Colors.amber,
+                              child: Padding(
+                                padding: const EdgeInsets.all(18.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              "assets/images/png/people.png",
+                                              height: 16,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            const SizedBox(width: 5),
+                                            const Text(
+                                              ':عدد المشتركين',
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: Color(0XFF06A6F1),
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 5),
+                                            Text(
+                                              '${deal.joiners}', // Dynamic count
+                    
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                color: Color(0XFF06A6F1),
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'مدى ربحية الصفقة',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Transform(
+                                          alignment: Alignment.center,
+                                          transform: Matrix4.identity()
+                                            ..scale(-1.0,
+                                                1.0), // Flips horizontally
+                                          child: LinearProgressIndicator(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            value: deal.profitPercentage,
+                                            backgroundColor: Colors.grey[300],
+                                            valueColor:
+                                                const AlwaysStoppedAnimation<
+                                                    Color>(Colors.green),
+                                            minHeight: 13,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                          ],
-                        ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                "assets/images/png/Time1.png",
+                                height: 23,
+                                fit: BoxFit.cover,
+                              ),
+                              const SizedBox(width: 10),
+                              const Text(
+                                'تاريخ الصفقات السابقة',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          if (deal.campaignHistories != null &&
+                              deal.campaignHistories!.isNotEmpty)
+                            Column(
+                              children: deal.campaignHistories!
+                                  .map(
+                                    (e) => CampaignHistoriesCardWidget(
+                                        campaignHistoriesModel: e),
+                                  )
+                                  .toList(),
+                            ),
+                        ],
                       ),
                     ),
                     Container(
@@ -313,14 +309,7 @@ class DealDetailsPage extends StatelessWidget {
                               const SizedBox(
                                 width: 15,
                               ),
-                              // Text(
-                              //   ":",
-                              //   style: TextStyle(
-                              //     fontSize: 50,
-                              //     color: Colors.red,
-                              //     fontWeight: FontWeight.bold,
-                              //   ),
-                              // ),
+                          
                               const Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

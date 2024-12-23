@@ -46,4 +46,14 @@ class WalletRepoImpl implements WalletRepo {
       return Left(_failureHandler.getFailureType(e));
     }
   }
+
+  @override
+  Future<Either<Failure, BaseResponse>> getPaymentMethods() async {
+    try {
+      final failureOrDone = await _remoteDatasourse.getPaymentMethods();
+      return Right(failureOrDone);
+    } on DioException catch (e) {
+      return Left(_failureHandler.getFailureType(e));
+    }
+  }
 }

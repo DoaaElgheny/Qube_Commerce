@@ -57,4 +57,9 @@ static const String more = 'assets/icons/homebar/menu.svg';
   static const String calendar_lines_pen = '$svgPath/calendar_lines_pen.svg';
   static const String person = '$svgPath/person.svg';
   static const String circle_check = '$svgPath/circle_check.svg';
+  static const String money1 = 'assets/icons/my_deals/Money 1.svg';
+  static const String cridet = 'assets/icons/wallet/cridet.png';
+  static const String ipan = 'assets/icons/wallet/ipan.png';
+  static const String swiftCode = 'assets/icons/wallet/swiftCode.png';
+  static const String withdrowAccName = 'assets/icons/wallet/withdrowAccName.png';
 }

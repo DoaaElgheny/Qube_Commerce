@@ -29,4 +29,7 @@ final class EndPoints {
   static const String getMyWallets = '$_wallets/GetMyWallets';
   static const String deposit = '$_wallets/Deposit';
   static const String withdraw = '$_wallets/Withdraw';
+
+  //lookups
+  static const String paymentMethodsLookup = '${baseUrl}api/Lookups/payment-methods';
 }

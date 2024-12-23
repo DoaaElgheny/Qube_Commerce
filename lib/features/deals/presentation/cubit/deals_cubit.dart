@@ -20,14 +20,16 @@ class DealsCubit extends Cubit<DealsState> {
   Data? myDealsData;
   List<DealModel?>? myDeals;
   DealsDetailsModel? dealsDetailsModel;
+  TextEditingController searchControllerHome = TextEditingController();
 
-  Future<void> getAvailableDeals({int page = 1}) async {
+  Future<void> getAvailableDeals({int? page=1}) async {
     emit(DealsLoadingState());
     try {
       final failureOrDone = await _dealsUsecase.getAvailableDeals(
         getAvailableDealsModel: GetAvailableDealsModel(
           pageNumber: page,
           pageSize: 10,
+          searchValue: searchControllerHome.text
         ),
       );
       final either = AppUtils.mapFailuerOrDone(either: failureOrDone);
@@ -79,5 +81,12 @@ class DealsCubit extends Cubit<DealsState> {
       log('Error is $e', name: 'getDetailsOfDeals');
       emit(DealsErrorState(message: e.toString()));
     }
+  }
+
+  void changeSearchDeals(String value) {
+    if (searchControllerHome.text != value) {
+      searchControllerHome.text = value;
+    }
+    emit(DealsSearchChangedState());
   }
 }

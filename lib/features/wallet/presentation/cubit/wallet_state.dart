@@ -19,3 +19,22 @@ class GetMyWalletsLoadedState extends WalletState {}
 class WalletErrorState extends WalletState {
   const WalletErrorState({super.title, super.message});
 }
+
+class GetPaymentMethodsLoadingState extends WalletState {}
+
+class GetPaymentMethodsLoadedState extends WalletState {}
+
+class GetPaymentMethodsErrorState extends WalletState {
+  const GetPaymentMethodsErrorState({super.title, super.message});
+}
+
+class WithdrawLoadingState extends WalletState {}
+
+class WithdrawErrorState extends WalletState {
+  const WithdrawErrorState({super.title, super.message});
+}
+
+class WithdrawSuccessState extends WalletState {
+  const WithdrawSuccessState();
+}
+

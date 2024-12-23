@@ -1,14 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:qubeCommerce/features/wallet/presentation/cubit/wallet_cubit.dart';
 import 'package:qubeCommerce/injection_container.dart';
+
+import '../widget/withdraw_bottom_sheet.dart';
 
 class MyWalletScreen extends StatelessWidget {
   const MyWalletScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final walletCubit =serviceLocator<WalletCubit>();
+    final walletCubit = serviceLocator<WalletCubit>();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -37,10 +38,11 @@ class MyWalletScreen extends StatelessWidget {
                             width: MediaQuery.of(context).size.width,
                             child: Row(
                               children: [
-                                 Expanded(
+                                Expanded(
                                   child: Container(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                           width: 45,
@@ -63,16 +65,13 @@ class MyWalletScreen extends StatelessWidget {
                                         const SizedBox(
                                           width: 15,
                                         ),
-                                       
                                       ],
                                     ),
                                   ),
                                 ),
-                             
                                 Expanded(
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Container(
                                         height: 40,
@@ -109,8 +108,6 @@ class MyWalletScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                               
-                               
                               ],
                             ),
                           ),
@@ -118,7 +115,7 @@ class MyWalletScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: 164,
+                                width: 160,
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -143,9 +140,7 @@ class MyWalletScreen extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          
-                                       
-                                           Text(
+                                          Text(
                                             "${walletCubit.myWallets!.first.profitBalance}",
                                             style: const TextStyle(
                                               fontSize: 20,
@@ -153,10 +148,10 @@ class MyWalletScreen extends StatelessWidget {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                           const SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
-                                           const Text(
+                                          const Text(
                                             "ج.م",
                                             style: TextStyle(
                                               fontSize: 18,
@@ -164,7 +159,6 @@ class MyWalletScreen extends StatelessWidget {
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
-                                           
                                         ],
                                       ),
                                     ),
@@ -197,7 +191,7 @@ class MyWalletScreen extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                           Text(
+                                          Text(
                                             "${walletCubit.myWallets!.first.availableBalance}",
                                             style: const TextStyle(
                                               fontSize: 20,
@@ -205,7 +199,7 @@ class MyWalletScreen extends StatelessWidget {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                           const SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           const Text(
@@ -216,8 +210,6 @@ class MyWalletScreen extends StatelessWidget {
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
-                                         
-                                         
                                         ],
                                       ),
                                     ),
@@ -231,7 +223,7 @@ class MyWalletScreen extends StatelessWidget {
                             children: [
                               Container(
                                 height: 48,
-                                width: 163,
+                                width: 160,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   gradient: const LinearGradient(colors: [
@@ -271,26 +263,55 @@ class MyWalletScreen extends StatelessWidget {
                                     Color(0xFF000080)
                                   ]),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'سحب',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
+                                child: InkWell(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      backgroundColor: Colors.transparent,
+                                      barrierColor: Colors.black.withOpacity(0.5),
+                                      isScrollControlled: true,
+                                      builder: (BuildContext context) {
+                                        return GestureDetector(
+                                          behavior: HitTestBehavior.opaque,
+                                          onTap: () => Navigator.of(context).pop(),
+                                          child: DraggableScrollableSheet(
+                                            initialChildSize: 0.6,
+                                            minChildSize: 0.6,
+                                            maxChildSize: 1.0,
+                                            builder: (BuildContext context, ScrollController scrollController) {
+                                              return GestureDetector(
+                                                onTap: () {},
+                                                child: WithdrawBottomSheet(scrollController: scrollController,walletId: walletCubit.myWallets!.first.id!,),
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    );
+
+                                  },
+
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        'سحب',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Image.asset(
-                                        "assets/images/png/Add Balance.png",
-                                        height: 16,
-                                        width: 16,
-                                        fit: BoxFit.cover),
-                                  ],
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Image.asset(
+                                          "assets/images/png/Add Balance.png",
+                                          height: 16,
+                                          width: 16,
+                                          fit: BoxFit.cover),
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
@@ -367,7 +388,6 @@ class MyWalletScreen extends StatelessWidget {
             //     ],
             //   ),
             // )
-         
           ],
         ),
       ),

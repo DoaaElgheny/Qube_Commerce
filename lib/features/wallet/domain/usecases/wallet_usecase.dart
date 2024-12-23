@@ -21,4 +21,8 @@ class WalletUsecase {
       {required DepositModel withdrawModel}) async {
     return await _repo.makeWithdraw(withdrawModel: withdrawModel);
   }
+
+  Future<Either<Failure, BaseResponse>> getPaymentMethods() async {
+    return await _repo.getPaymentMethods();
+  }
 }

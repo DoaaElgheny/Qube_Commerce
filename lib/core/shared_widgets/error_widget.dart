@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../config/locale/app_localizations.dart';
 import '../utils/app_colors.dart';
 
-class ErrorWidget extends StatelessWidget {
+class ErrorContainer extends StatelessWidget {
   final VoidCallback? onPress;
-  const ErrorWidget({super.key, this.onPress});
+  const ErrorContainer({super.key, this.onPress});
 
   @override
   Widget build(BuildContext context) {

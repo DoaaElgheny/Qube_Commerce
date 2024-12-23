@@ -102,5 +102,7 @@
   "hours":"ساعة",
   "miuntes":"دقايق",
   "seconds":"ثواني",
-  "join":"انضم في"
+  "join":"انضم في",
+  "withdraw_successfully":"تم السحب بنجاح",
+  "something_went_wrong":"حدث خطأ ما"
 }
