@@ -119,20 +119,20 @@ class _AllMyDealsScreenState extends State<AllMyDealsScreen> {
                                 SvgPicture.asset(ImageAssets.search_explor)),
                         suffixIcon: InkWell(
                           onTap: () {
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              enableDrag: true,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                              ),
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const FilterBottomSheet();
-                              },
-                            );
+                            // showModalBottomSheet(
+                            //   isScrollControlled: true,
+                            //   enableDrag: true,
+                            //   shape: const RoundedRectangleBorder(
+                            //     borderRadius: BorderRadius.only(
+                            //       topLeft: Radius.circular(10),
+                            //       topRight: Radius.circular(10),
+                            //     ),
+                            //   ),
+                            //   context: context,
+                            //   builder: (BuildContext context) {
+                            //     return const FilterBottomSheet();
+                            //   },
+                            // );
                           },
                           child: Padding(
                               padding: const EdgeInsetsDirectional.only(
@@ -178,7 +178,7 @@ class _AllMyDealsScreenState extends State<AllMyDealsScreen> {
                               children: [
                                 Text(
                                   AppLocalizations.of(context)!
-                                      .translate('Available_deals')!,
+                                      .translate('My_deals')!,
                                   style: TextStyle(
                                     color: AppColors.greyTextDarkColor,
                                     fontSize: 16,

@@ -16,7 +16,8 @@ class JoinDealCubit extends Cubit<JoinDealState> {
   static JoinDealCubit get(BuildContext context) => BlocProvider.of(context);
   final _dealsUsecase = serviceLocator<DealsUsecase>();
   String? dealValue;
-  double? serviceFees;
+  double? fees;
+  double serviceFees = 0;
   double? totalDealValue;
   Future<void> joinDeal(
       {required int campaignId, required String walletId}) async {
@@ -44,10 +45,15 @@ class JoinDealCubit extends Cubit<JoinDealState> {
   void changeDealValue(String v) {
     dealValue = v;
     if (v.isNotEmpty) {
-      serviceFees =
-          double.parse(dealValue ?? '0') * 0.1; //! 0.1 is the default of fees
-      totalDealValue = double.parse(dealValue ?? '0') + serviceFees!;
+      fees = double.parse(dealValue ?? '0') *
+          serviceFees; //! 0.1 is the default of fees
+      totalDealValue = double.parse(dealValue ?? '0') + fees!;
     }
     emit(JoinDealValueChangedState());
+  }
+
+  void getServiceFees(String v) {
+    serviceFees = double.parse(v);
+    emit(GetServiceFeesState());
   }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qubeCommerce/features/home/presentation/cubit/home_cubit.dart';
+import 'package:qubeCommerce/features/home/presentation/cubit/home_state.dart';
+import 'package:qubeCommerce/injection_container.dart';
 
 import '../cubit/join_deal_cubit.dart';
 
@@ -15,7 +18,6 @@ class DealSummaryCardWidget extends StatelessWidget {
           children: [
             Container(
               height: 48,
-
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
@@ -58,7 +60,6 @@ class DealSummaryCardWidget extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-            
                 Row(
                   children: [
                     const Text(
@@ -82,8 +83,6 @@ class DealSummaryCardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-             
-             
               ],
             ),
             const SizedBox(
@@ -92,16 +91,15 @@ class DealSummaryCardWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-             
-                const Text(
-                  "%رسوم الخدمة 10",
-                  style: TextStyle(
+                Text(
+                  "%رسوم الخدمة ${joinDealCubit.serviceFees*100}",
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
+                  textDirection: TextDirection.ltr,
                 ),
-             
                 Row(
                   children: [
                     const Text(
@@ -116,7 +114,7 @@ class DealSummaryCardWidget extends StatelessWidget {
                       width: 3,
                     ),
                     Text(
-                      "${joinDealCubit.serviceFees ?? '0'}",
+                      "${joinDealCubit.fees ?? '0'}",
                       style: const TextStyle(
                         color: Color(0xFF718096),
                         fontSize: 14,
@@ -125,7 +123,6 @@ class DealSummaryCardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-             
               ],
             ),
             const SizedBox(
@@ -134,7 +131,7 @@ class DealSummaryCardWidget extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text(
+                Text(
                   "الخصم",
                   style: TextStyle(
                     color: Colors.black,
@@ -142,7 +139,6 @@ class DealSummaryCardWidget extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-            
                 Row(
                   children: [
                     Text(
@@ -166,8 +162,6 @@ class DealSummaryCardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-             
-              
               ],
             ),
             const SizedBox(
@@ -188,7 +182,7 @@ class DealSummaryCardWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                    const Text(
+                  const Text(
                     "الإجمالي",
                     style: TextStyle(
                       color: Colors.white,

@@ -17,6 +17,8 @@ final class JoinDealLoadedState extends JoinDealState {}
 
 final class JoinDealValueChangedState extends JoinDealState {}
 
+final class GetServiceFeesState extends JoinDealState {}
+
 final class JoinDealErrorState extends JoinDealState {
   const JoinDealErrorState({super.message, super.title});
 }

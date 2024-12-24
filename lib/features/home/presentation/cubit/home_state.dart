@@ -1,26 +1,20 @@
+import 'package:equatable/equatable.dart';
 
-import 'package:qubeCommerce/features/home/data/models/deal_model.dart';
-import 'package:qubeCommerce/features/deals/data/models/deals_entity.dart';
+abstract class HomeState extends Equatable {
+  final String? title;
+  final String? message;
+  const HomeState({this.title, this.message});
 
-class HomeState {
-  DealsEntity? avaliableDealsList;
-  DealsEntity? myDealsList;
+  @override
+  List<Object> get props => [identityHashCode(this)];
+}
 
-  HomeState({
-    required this.avaliableDealsList,
-    required this.myDealsList,
+class HomeInitial extends HomeState {}
 
-  });
+class GetSettingsLoadedState extends HomeState {}
 
-  HomeState copyWith({
-    DealsEntity? avaliableDealsList,
-    DealsEntity? myDealsList,
+class GetProfitabilityTypesLoadedState extends HomeState {}
 
-  }) {
-    return HomeState(
-      avaliableDealsList: avaliableDealsList ?? this.avaliableDealsList,
-      myDealsList: myDealsList ?? this.myDealsList,
-  
-    );
-  }
+class HomeErrorState extends HomeState {
+  const HomeErrorState({super.title, super.message});
 }

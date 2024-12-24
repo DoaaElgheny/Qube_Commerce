@@ -8,7 +8,6 @@ import 'package:flutter/foundation.dart';
 Map<String, dynamic> map = jsonDecode(<myJSONString>);
 var myRootNode = Root.fromJson(map);
 */
-import 'package:qubeCommerce/features/home/data/models/deal_model.dart';
 
 import 'deal_model.dart';
 import 'picture_model.dart';

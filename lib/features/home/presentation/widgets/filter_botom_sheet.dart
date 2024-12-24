@@ -1,30 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qubeCommerce/core/shared_widgets/elevated_button.dart';
-import '../../../../core/shared_widgets/app_text.dart';
+import 'package:qubeCommerce/core/utils/app_utils.dart';
+import 'package:qubeCommerce/injection_container.dart';
+import 'package:qubeCommerce/shared/widget/loader_widget.dart';
 import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/assets_manager.dart';
+import '../../../deals/deals_export.dart';
+import '../../data/models/profitability_type_model.dart';
+import '../cubit/home_cubit.dart';
+import '../cubit/home_state.dart';
 
 class FilterBottomSheet extends StatefulWidget {
-  const FilterBottomSheet({super.key});
-
+  const FilterBottomSheet({super.key, required this.onPressedFilter});
+  final Function(GetAvailableDealsModel) onPressedFilter;
   @override
   State<FilterBottomSheet> createState() => _FilterBottomSheetState();
 }
 
 class _FilterBottomSheetState extends State<FilterBottomSheet> {
-    DateTime? _startDate;
+  DateTime? _startDate;
   DateTime? _endDate;
   int? _selectedIndex;
-   // List of options (can be dynamic)
-  final List<String> _options = ['Option 1', 'Option 2', 'Option 3'];
+  ProfitabilityTypeModel? profitabilityTypeSelected;
+  // List of options (can be dynamic)
+  // final List<String> _options = ['Option 1', 'Option 2', 'Option 3'];
 
   // Handle tap on custom radio button
-  void _onOptionSelected(int index) {
+  void _onOptionSelected(
+      {required int index, required ProfitabilityTypeModel profitabilityType}) {
     setState(() {
       _selectedIndex = index;
+      profitabilityTypeSelected = profitabilityType;
     });
   }
+
   Future<void> _selectDate(BuildContext context, bool isStartDate) async {
     DateTime initialDate = isStartDate
         ? (_startDate ?? DateTime.now())
@@ -49,7 +58,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           } else {
             // Ensure end date is after start date
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('End date must be after start date!')),
+              const SnackBar(
+                  content: Text('End date must be after start date!')),
             );
           }
         }
@@ -57,7 +67,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     }
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -109,7 +118,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 ],
               ),
             ),
-    
             Divider(
               color: AppColors.loginColoseColor.withOpacity(0.3),
             ),
@@ -119,78 +127,100 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () => _selectDate(context, true),
-              child: Text(
-                _startDate == null
-                    ? 'Select Start Date'
-                    : 'Start Date: ${_startDate!.toLocal()}',
-                style: TextStyle(fontSize: 18, color: Colors.blue),
-              ),
-            ),
-            SizedBox(height: 16),
-            GestureDetector(
-              onTap: () => _selectDate(context, false),
-              child: Text(
-                _endDate == null
-                    ? 'Select End Date'
-                    : 'End Date: ${_endDate!.toLocal()}',
-                style: TextStyle(fontSize: 18, color: Colors.blue),
-              ),
-            ),
-            
-          ],
-        ),
-      ),
-                Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: List.generate(
-            _options.length,
-            (index) => GestureDetector(
-              onTap: () => _onOptionSelected(index),
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 8.0),
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: _selectedIndex == index
-                      ? Colors.blue
-                      : Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: _selectedIndex == index
-                        ? Colors.blue
-                        : Colors.grey.shade400,
-                    width: 2,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                  
-                    Text(
-                      _options[index],
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: _selectedIndex == index
-                            ? Colors.white
-                            : Colors.black,
-                      ),
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () => _selectDate(context, true),
+                          child: Text(
+                            _startDate == null
+                                ? 'Select Start Date'
+                                : 'Start Date: ${AppUtils.formatDateToString(_startDate!.toString())}',
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.blue),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        GestureDetector(
+                          onTap: () => _selectDate(context, false),
+                          child: Text(
+                            _endDate == null
+                                ? 'Select End Date'
+                                : 'End Date: ${AppUtils.formatDateToString(_endDate!.toString())}',
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.blue),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-      elevatedButton(height: 55, primaryColor: AppColors.primaryColor, onpressed: (){
-
-      }, title: 'filter', loading: false)
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: BlocBuilder<HomeCubit, HomeState>(
+                      builder: (context, state) {
+                        final profitabilityTypes =
+                            serviceLocator<HomeCubit>().profitabilityTypes;
+                        if (profitabilityTypes.isEmpty)
+                          return LoaderWidget.circleProgressIndicator();
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: List.generate(
+                            profitabilityTypes.length,
+                            (index) => GestureDetector(
+                              onTap: () => _onOptionSelected(
+                                  index: index,
+                                  profitabilityType: profitabilityTypes[index]),
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                padding: const EdgeInsets.all(16.0),
+                                decoration: BoxDecoration(
+                                  color: _selectedIndex == index
+                                      ? Colors.blue
+                                      : Colors.grey.shade200,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: _selectedIndex == index
+                                        ? Colors.blue
+                                        : Colors.grey.shade400,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      profitabilityTypes[index].name!,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: _selectedIndex == index
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  elevatedButton(
+                      height: 55,
+                      primaryColor: AppColors.primaryColor,
+                      onpressed: () {
+                        Navigator.pop(context);
+                        widget.onPressedFilter(GetAvailableDealsModel(
+                            from: AppUtils.formatDateToString(
+                                _startDate!.toString()),
+                            to: AppUtils.formatDateToString(
+                                _endDate!.toString()),
+                            profitability: profitabilityTypeSelected?.id));
+                      },
+                      title: 'filter',
+                      loading: false)
                 ],
               ),
             )

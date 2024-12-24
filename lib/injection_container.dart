@@ -2,15 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/api/api_consumer.dart';
-import 'core/api/app_interceptors.dart';
-import 'core/api/dio_consumer.dart';
 import 'core/api/http/failure_handler.dart';
 import 'core/api/http/http_export.dart';
 import 'core/netwok/connection_cubit.dart';
 import 'features/bottomNavigationBar/injection_container.dart';
 import 'features/deals/deals_export.dart';
-import 'features/home/injection_container.dart';
+import 'features/home/data/datasources/home_remote_data_source.dart';
+import 'features/home/data/repositories/home_repo_impl.dart';
+import 'features/home/domain/repositories/home_repo.dart';
+import 'features/home/domain/usecases/home_usecase.dart';
+import 'features/home/presentation/cubit/home_cubit.dart';
 import 'features/splash/injection_container.dart';
 import 'features/wallet/wallet_export.dart';
 
@@ -58,14 +59,19 @@ Future<void> init() async {
       () => DealsRemoteDatasourceImpl());
   serviceLocator.registerLazySingleton<WalletRemoteDatasource>(
       () => WalletRemoteDatasourceImpl());
+  serviceLocator.registerLazySingleton<HomeRemoteDatasource>(
+      () => HomeRemoteDatasourceImpl());
   //! ################################# Repository #################################
 
   serviceLocator.registerLazySingleton<DealsRepo>(() => DealsRepoImpl());
   serviceLocator.registerLazySingleton<WalletRepo>(() => WalletRepoImpl());
+  serviceLocator.registerLazySingleton<HomeRepo>(() => HomeRepoImpl());
   //! ################################# Usecases #################################
   serviceLocator.registerLazySingleton(() => DealsUsecase());
   serviceLocator.registerLazySingleton(() => WalletUsecase());
+  serviceLocator.registerLazySingleton(() => HomeUsecase());
   //! ############################### Bloc Or Cubit ###############################
   serviceLocator.registerFactory(() => DealsCubit());
   serviceLocator.registerSingleton(WalletCubit());
+  serviceLocator.registerSingleton(HomeCubit());
 }

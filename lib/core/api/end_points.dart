@@ -31,5 +31,10 @@ final class EndPoints {
   static const String withdraw = '$_wallets/Withdraw';
 
   //lookups
-  static const String paymentMethodsLookup = '${baseUrl}api/Lookups/payment-methods';
+  static const String _lookups = '${baseUrl}api/Lookups';
+  static const String paymentMethodsLookup = '$_lookups/payment-methods';
+  static const String profitabilityTypes = '$_lookups/profitability-types';
+  //Admins
+  static const String _admins = '${baseUrl}api/Admins';
+  static const String getSettings = '$_admins/GetSettings';
 }

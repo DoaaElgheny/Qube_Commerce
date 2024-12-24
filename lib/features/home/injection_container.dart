@@ -1,9 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:qubeCommerce/features/home/domain/repositories/home_repository.dart';
-import 'package:qubeCommerce/features/home/domain/usecases/get_avaliable_deals_list.dart';
-import 'package:qubeCommerce/features/home/domain/usecases/get_my_deals_list.dart';
 import 'package:qubeCommerce/features/home/presentation/cubit/filters_cubit.dart';
-import 'package:qubeCommerce/features/home/presentation/cubit/home_cubit.dart';
 
 final sl = GetIt.instance;
 

@@ -9,7 +9,6 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:qubeCommerce/injection_container.dart' as di;
 import 'package:sizer/sizer.dart';
 
-
 import 'config/locale/app_localizations_setup.dart';
 import 'config/routes/app_routes.dart';
 import 'config/themes/app_theme.dart';
@@ -20,6 +19,7 @@ import 'core/shared_widgets/disconnected_screen.dart';
 import 'core/utils/app_strings.dart';
 import 'features/bottomNavigationBar/presentation/cubit/buttomnavigationbar_cubit.dart';
 import 'features/home/presentation/cubit/filters_cubit.dart';
+import 'features/home/presentation/cubit/home_cubit.dart';
 import 'features/splash/presentation/cubit/locale_cubit.dart';
 import 'features/wallet/presentation/cubit/wallet_cubit.dart';
 import 'injection_container.dart';
@@ -98,8 +98,14 @@ class _qubeCommerceAppState extends State<qubeCommerceApp> {
             ),
             BlocProvider<FiltersCubit>(
               create: (context) => di.sl<FiltersCubit>(),
-            ),   BlocProvider<WalletCubit>(
+            ),
+            BlocProvider<WalletCubit>(
               create: (context) => di.sl<WalletCubit>()..getPaymentMethods(),
+            ),
+            BlocProvider<HomeCubit>(
+              create: (context) => serviceLocator<HomeCubit>()
+                ..getSettings()
+                ..getProfitabilityTypes(),
             ),
           ],
           child: BlocBuilder<ConnectionCubit, ConnectionStatus>(
@@ -116,7 +122,7 @@ class _qubeCommerceAppState extends State<qubeCommerceApp> {
                       return MaterialApp(
                         navigatorKey: navigatorKey,
                         title: AppStrings.appName,
-                       locale: state.locale,
+                        locale: state.locale,
                         //locale: const Locale(AppStrings.arabicCode),
                         debugShowCheckedModeBanner: false,
                         theme: appTheme(),

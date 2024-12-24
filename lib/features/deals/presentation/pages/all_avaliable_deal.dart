@@ -161,7 +161,22 @@ class AllAvaliableScreen extends StatelessWidget {
                                       ),
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return const FilterBottomSheet();
+                                        return FilterBottomSheet(
+                                          onPressedFilter:
+                                              (profitabilityType) async {
+                                            await LoaderWidget.show(
+                                                context,
+                                                () => dealsCubit
+                                                        .getAvailableDeals(
+                                                      from: profitabilityType
+                                                          .from,
+                                                      to: profitabilityType.to,
+                                                      profitability:
+                                                          profitabilityType
+                                                              .profitability,
+                                                    ));
+                                          },
+                                        );
                                       },
                                     );
                                   },
@@ -248,19 +263,17 @@ class AllAvaliableScreen extends StatelessWidget {
                             linearProgressIndicator: LinearProgressIndicator(
                               backgroundColor:
                                   AppColors.backgroundProgressBarGreyColor,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(AppColors.green),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.green),
                               color: Colors.transparent,
                               minHeight: 12,
                               value: 0.5,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             showCarouselSliderTwo: true,
-                          
                             svgPath1: 'assets/icons/overview_section/Bag 1.svg',
                             svgPath2:
                                 'assets/icons/overview_section/Calender 1.svg',
-                           
                           ),
                         ),
                         loadMore: () async {
@@ -272,7 +285,6 @@ class AllAvaliableScreen extends StatelessWidget {
                           return cubit.availableDeals!;
                         },
                       ),
-               
                     ],
                   );
                 },

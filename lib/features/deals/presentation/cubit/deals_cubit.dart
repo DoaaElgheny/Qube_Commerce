@@ -22,14 +22,22 @@ class DealsCubit extends Cubit<DealsState> {
   DealsDetailsModel? dealsDetailsModel;
   TextEditingController searchControllerHome = TextEditingController();
 
-  Future<void> getAvailableDeals({int? page=1}) async {
+  Future<void> getAvailableDeals({
+    int? page = 1,
+    String? from,
+    String? to,
+    int? profitability,
+  }) async {
     emit(DealsLoadingState());
     try {
       final failureOrDone = await _dealsUsecase.getAvailableDeals(
         getAvailableDealsModel: GetAvailableDealsModel(
           pageNumber: page,
           pageSize: 10,
-          searchValue: searchControllerHome.text
+          searchValue: searchControllerHome.text,
+          from: from,
+          to: to,
+          profitability: profitability,
         ),
       );
       final either = AppUtils.mapFailuerOrDone(either: failureOrDone);
